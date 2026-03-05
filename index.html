@@ -5381,7 +5381,7 @@ if (rang === 1) rankBadge = rang;
         function genererContenuDetailleInline(res) {
             const protocol = res.data;
             const numJudges = protocol.equipes[0]?.elements[0]?.juges?.length || 0;
-            const facteur = protocol.facteur;
+            const facteur = (res.prog === 'SP' || protocol.programme === 'SP') ? 1.33 : 2.67;
             
             const equipesSorted = [...protocol.equipes].sort((a, b) => (a.rang || 999) - (b.rang || 999));
             
@@ -8779,7 +8779,7 @@ function ajouterEquipeManuelle() {
         function genererContenuDetailleInline(res) {
             const protocol = res.data;
             const numJudges = protocol.equipes[0]?.elements[0]?.juges?.length || 0;
-            const facteur = protocol.facteur;
+            const facteur = (res.prog === 'SP' || protocol.programme === 'SP') ? 1.33 : 2.67;
             
             const equipesSorted = [...protocol.equipes].sort((a, b) => (a.rang || 999) - (b.rang || 999));
             
