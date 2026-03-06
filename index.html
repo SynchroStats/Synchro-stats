@@ -1,5 +1,4 @@
-﻿<!DOCTYPE html>
-<html lang="fr">
+﻿<!DOCTYPE html><html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2131,7 +2130,7 @@
                         const fullCode = c1;
                         const infoCol = cells[2] || '';   // F, <, x, etc.
                         const bv = parseFloat(cells[3]) || 0;
-                        // Si infoCol contient F ou autre marqueur, il n'y a pas de colonne spacer
+                        // Si infoCol contient un marqueur (F, x...), pas de colonne spacer
                         const hasInfo = infoCol.trim() !== '' && infoCol.trim() !== '-';
                         const goe = hasInfo ? (parseFloat(cells[4]) || 0) : (parseFloat(cells[5]) || 0);
                         // cells[6] = Elm.Ded (souvent vide)
@@ -2219,14 +2218,21 @@
                             const v = parseFloat(cells[j]);
                             if (!isNaN(v) && v >= 1 && v <= 10 && ![1.33, 2.67].includes(v)) scores.push(v);
                         }
-                        // Supprime la moyenne si elle est en trop (10ème valeur)
-                        // Detecte si la derniere valeur est une moyenne (proche de la moyenne des autres)
-if (scores.length > 1) {
-    const last = scores[scores.length - 1];
-    const others = scores.slice(0, scores.length - 1);
-    const avg = others.reduce((s,v) => s+v, 0) / others.length;
-    if (Math.abs(last - avg) < 0.15) scores.pop();
-}
+                        const nbJugesRef = currentTeam.elements.length > 0 && currentTeam.elements[0].juges ? currentTeam.elements[0].juges.length : 9;
+                        window.debugLog(`PCS debug: scores.length=${scores.length} nbJugesRef=${nbJugesRef} scores=${JSON.stringify(scores)}`);
+                        if (scores.length > nbJugesRef) {
+                            // Vérifie si le premier score est une moyenne des autres
+                            const checkIsAvg = (arr, idx) => {
+                                const val = arr[idx];
+                                const others = arr.filter((_, i) => i !== idx);
+                                const avg = others.reduce((s,v) => s+v, 0) / others.length;
+                                return Math.abs(val - avg) < 0.2;
+                            };
+                            while (scores.length > nbJugesRef) {
+                                if (checkIsAvg(scores, 0)) scores.shift();
+                                else scores.pop();
+                            }
+                        }
                         if (c1.includes('Composition'))    currentTeam.composantes.composition    = scores;
                         else if (c1.includes('Presentation')) currentTeam.composantes.presentation = scores;
                         else if (c1.includes('Skating'))      currentTeam.composantes.skatingSkills = scores;
@@ -2448,35 +2454,33 @@ if (scores.length > 1) {
 
             if (hasCanadaFormat) {
                 window.debugLog(`🔍 Format CANADA: Skate Canada (province + 6 scores)`);
-                const provPatt = /(?<!\w)(ON|QC|BC|AB|MB|SK|NB|NS|NL|PE|NT|YT|NU)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/g;
-                const seenRanks = new Set();
-                let cm;
-                while ((cm = provPatt.exec(texte)) !== null) {
-                    const before = texte.substring(Math.max(0, cm.index - 3500), cm.index);
-                    // Exclure codes d'éléments: le nom d'un élément contient toujours un chiffre dans les 7 premiers chars
+                const provPatt2 = /(?<!\w)(ON|QC|BC|AB|MB|SK|NB|NS|NL|PE|NT|YT|NU)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+(-?[\d.]+)\s+(-?[\d.]+)/g;
+                const seenRanks2 = new Set();
+                let cm2;
+                while ((cm2 = provPatt2.exec(texte)) !== null) {
+                    const before = texte.substring(Math.max(0, cm2.index - 3500), cm2.index);
                     const allRanks = [...before.matchAll(/(?<!\d)(\d{1,2})\s+([A-Za-z\xc0-\xff])/g)]
                         .filter(m => !/\d/.test(before.substring(m.index + m[0].length - 1, m.index + m[0].length + 7)));
                     if (!allRanks.length) continue;
-                    // Prendre le dernier rang valide qui n'est pas encore dans seenRanks
                     let last = null;
                     for (let ri = allRanks.length - 1; ri >= 0; ri--) {
                         const rk = parseInt(allRanks[ri][1]);
-                        if (!seenRanks.has(rk)) { last = allRanks[ri]; break; }
+                        if (!seenRanks2.has(rk)) { last = allRanks[ri]; break; }
                     }
                     if (!last) continue;
                     const rang = parseInt(last[1]);
-                    if (seenRanks.has(rang)) continue;
-                    seenRanks.add(rang);
+                    if (seenRanks2.has(rang)) continue;
+                    seenRanks2.add(rang);
                     let nom = before.substring(last.index + last[0].length - 1);
                     nom = nom.replace(/\s*-\s*(Senior|Junior)\b.*/i, '');
                     nom = nom.replace(/\s+(Club\s+de|Club\s+d'|de\s+patinage|Skating\s+(?:Centre|Club)|Figure|inc\.|Burlington|patinage).*/i, '');
                     nom = nom.trim();
-                    const elem  = parseFloat(cm[3]);
-                    const pcs   = parseFloat(cm[4]);
-                    const total = parseFloat(cm[7]);
+                    const elem  = parseFloat(cm2[3]);
+                    const pcs   = parseFloat(cm2[4]);
+                    const total = parseFloat(cm2[7]);
                     if (!nom || nom.length < 2 || isNaN(elem) || elem <= 0 || isNaN(total)) continue;
                     window.debugLog(`✅ Canada: rang=${rang} nom='${nom}' elem=${elem} total=${total}`);
-                    headers.push({ rang, nom, nation: 'CAN', total, tech: elem, pres: pcs, ded: 0, index: cm.index });
+                    headers.push({ rang, nom, nation: 'CAN', total, tech: elem, pres: pcs, ded: 0, index: cm2.index });
                 }
             } else if (hasQuebecFormat) {
                 window.debugLog(`🔍 Format QUÉBEC: français, nom avant Rang`);
@@ -2819,7 +2823,9 @@ if (scores.length > 1) {
                     if (last > prevMax) { factored = last; nums.pop(); }
                 }
                 // Format Canada: colonne moyenne non-factorisée en tête (ex: 9.42 avant les juges J2-J9)
-                const judges = (skipAvg && nums.length > 8) ? nums.slice(1) : nums;
+                const nbJugesExpected = currentTeam && currentTeam.elements.length > 0 && currentTeam.elements[0].juges ? currentTeam.elements[0].juges.length : 9;
+                const judges = skipAvg ? nums.slice(1) : nums;
+                while (judges.length > nbJugesExpected) judges.pop();
                 const final = factored > 0 ? factored : (judges.length > 0 ? judges[judges.length - 1] : 0);
                 return { judges, final };
             };
@@ -2847,7 +2853,10 @@ if (scores.length > 1) {
                     const prevMax = Math.max(...allJ.slice(0, -1));
                     if (last > prevMax) { factored.push(last); allJ = allJ.slice(0, -1); }
                 }
-                const judges = (_hasAvgCol && allJ.length > 8) ? allJ.slice(1) : allJ;
+                const nbJugesExpected = eq.elements.length > 0 && eq.elements[0].juges ? eq.elements[0].juges.length : 9;
+                window.debugLog(`PCS allJ: ${JSON.stringify(allJ)} nbJugesExpected=${nbJugesExpected}`);
+                const judges = _hasAvgCol ? allJ.slice(1) : allJ;
+                while (judges.length > nbJugesExpected) judges.pop();
                 const final = factored.length > 0 ? factored[0] : (judges.length > 0 ? judges[judges.length - 1] : 0);
                 if (judges.length >= 3) _pcsRows.push({ judges, final });
             }
@@ -3823,7 +3832,9 @@ if (scores.length > 1) {
                     if (last > prevMax) { factored = last; nums.pop(); }
                 }
                 // Format Canada: colonne moyenne non-factorisée en tête (ex: 9.42 avant les juges J2-J9)
-                const judges = (skipAvg && nums.length > 8) ? nums.slice(1) : nums;
+                const nbJugesExpected = currentTeam && currentTeam.elements.length > 0 && currentTeam.elements[0].juges ? currentTeam.elements[0].juges.length : 9;
+                const judges = skipAvg ? nums.slice(1) : nums;
+                while (judges.length > nbJugesExpected) judges.pop();
                 const final = factored > 0 ? factored : (judges.length > 0 ? judges[judges.length - 1] : 0);
                 return { judges, final };
             };
@@ -3846,7 +3857,10 @@ if (scores.length > 1) {
                     const prevMax = Math.max(...allJ.slice(0, -1));
                     if (last > prevMax) { factored.push(last); allJ = allJ.slice(0, -1); }
                 }
-                const judges = (_hasAvgCol && allJ.length > 8) ? allJ.slice(1) : allJ;
+                window.debugLog(`PCS allJ: ${JSON.stringify(allJ)} eq.elements[0]?.juges?.length=${eq.elements[0]?.juges?.length}`);
+                const nbJugesExpected = eq.elements.length > 0 && eq.elements[0].juges ? eq.elements[0].juges.length : 9;
+                const judges = _hasAvgCol ? allJ.slice(1) : allJ;
+                while (judges.length > nbJugesExpected) judges.pop();
                 const final = factored.length > 0 ? factored[0] : (judges.length > 0 ? judges[judges.length - 1] : 0);
                 if (judges.length >= 3) _pcsRows.push({ judges, final });
             }
@@ -6149,7 +6163,7 @@ if (rang === 1) rankBadge = rang;
                 const compRankFinal = compositionRankings[team.nom];
                 const compRankClass = getRankClass(compRankFinal, displayRang);
                 html += `<tr><td class="text-left">Composition</td><td class="number"><strong>${team.composantes.compFinal ? team.composantes.compFinal.toFixed(2) : '-'}</strong></td>`;
-                team.composantes.composition.slice(0, numJudges).forEach(score => {
+                team.composantes.composition.forEach(score => {
                     html += `<td class="number">${score.toFixed(2)}</td>`;
                 });
                 html += `</tr>`;
@@ -6166,7 +6180,7 @@ if (rang === 1) rankBadge = rang;
                 const presRankFinal = presentationRankings[team.nom];
                 const presRankClass = getRankClass(presRankFinal, displayRang);
                 html += `<tr><td class="text-left">Presentation</td><td class="number"><strong>${team.composantes.presFinal ? team.composantes.presFinal.toFixed(2) : '-'}</strong></td>`;
-                team.composantes.presentation.slice(0, numJudges).forEach(score => {
+                team.composantes.presentation.forEach(score => {
                     html += `<td class="number">${score.toFixed(2)}</td>`;
                 });
                 html += `</tr>`;
@@ -6183,7 +6197,7 @@ if (rang === 1) rankBadge = rang;
                 const skatRankFinal = skatingSkillsRankings[team.nom];
                 const skatRankClass = getRankClass(skatRankFinal, displayRang);
                 html += `<tr><td class="text-left">Skating Skills</td><td class="number"><strong>${team.composantes.skatFinal ? team.composantes.skatFinal.toFixed(2) : '-'}</strong></td>`;
-                team.composantes.skatingSkills.slice(0, numJudges).forEach(score => {
+                team.composantes.skatingSkills.forEach(score => {
                     html += `<td class="number">${score.toFixed(2)}</td>`;
                 });
                 html += `</tr>`;
@@ -9548,7 +9562,7 @@ function ajouterEquipeManuelle() {
                 const compRankFinal = compositionRankings[team.nom];
                 const compRankClass = getRankClass(compRankFinal, displayRang);
                 html += `<tr><td class="text-left">Composition</td><td class="number"><strong>${team.composantes.compFinal ? team.composantes.compFinal.toFixed(2) : '-'}</strong></td>`;
-                team.composantes.composition.slice(0, numJudges).forEach(score => {
+                team.composantes.composition.forEach(score => {
                     html += `<td class="number">${score.toFixed(2)}</td>`;
                 });
                 html += `</tr>`;
@@ -9565,7 +9579,7 @@ function ajouterEquipeManuelle() {
                 const presRankFinal = presentationRankings[team.nom];
                 const presRankClass = getRankClass(presRankFinal, displayRang);
                 html += `<tr><td class="text-left">Presentation</td><td class="number"><strong>${team.composantes.presFinal ? team.composantes.presFinal.toFixed(2) : '-'}</strong></td>`;
-                team.composantes.presentation.slice(0, numJudges).forEach(score => {
+                team.composantes.presentation.forEach(score => {
                     html += `<td class="number">${score.toFixed(2)}</td>`;
                 });
                 html += `</tr>`;
@@ -9582,7 +9596,7 @@ function ajouterEquipeManuelle() {
                 const skatRankFinal = skatingSkillsRankings[team.nom];
                 const skatRankClass = getRankClass(skatRankFinal, displayRang);
                 html += `<tr><td class="text-left">Skating Skills</td><td class="number"><strong>${team.composantes.skatFinal ? team.composantes.skatFinal.toFixed(2) : '-'}</strong></td>`;
-                team.composantes.skatingSkills.slice(0, numJudges).forEach(score => {
+                team.composantes.skatingSkills.forEach(score => {
                     html += `<td class="number">${score.toFixed(2)}</td>`;
                 });
                 html += `</tr>`;
