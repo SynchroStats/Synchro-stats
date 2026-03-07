@@ -785,7 +785,7 @@
         const DB_RES = 'synchro_v2_resultats';
         const DB_JUDGES = 'synchro_v2_judges';
         const safeStorage = localStorage;
-        let jugesDB = [];
+        let jugesDB = [{"id":"edoardo_bergamasco_ITA","prenom":"Edoardo","nom":"Bergamasco","pays":"ITA"},{"id":"rebecca_finder_USA","prenom":"Rebecca","nom":"Finder","pays":"USA"},{"id":"michelle_fitters-daleweij_NED","prenom":"Michelle","nom":"Fitters-daleweij","pays":"NED"},{"id":"rengin_gunaydin_TUR","prenom":"Rengin","nom":"Gunaydin","pays":"TUR"},{"id":"felicia_haining-miller_USA","prenom":"Felicia","nom":"Haining-Miller","pays":"USA"},{"id":"devon_hensel_USA","prenom":"Devon","nom":"Hensel","pays":"USA"},{"id":"megan_jackson_USA","prenom":"Megan","nom":"Jackson","pays":"USA"},{"id":"christine_mueller_SUI","prenom":"Christine","nom":"Mueller","pays":"SUI"},{"id":"daren_patterson_USA","prenom":"Daren","nom":"Patterson","pays":"USA"},{"id":"richard_perez_USA","prenom":"Richard","nom":"Perez","pays":"USA"},{"id":"marielle_sartre_FRA","prenom":"Marielle","nom":"Sartre","pays":"FRA"},{"id":"natalia_szczesna_POL","prenom":"Natalia","nom":"Szczesna","pays":"POL"},{"id":"gale_tanger_USA","prenom":"Gale","nom":"Tanger","pays":"USA"},{"id":"karen_wolanchuck_USA","prenom":"Karen","nom":"Wolanchuck","pays":"USA"},{"id":"paula_ziegler_USA","prenom":"Paula","nom":"Ziegler","pays":"USA"}];
         
         // Global debug log - disponible partout (uploadPDF le surcharge avec affichage UI)
         if (typeof window.debugLog !== 'function') {
@@ -8527,6 +8527,7 @@ function ajouterEquipeManuelle() {
                 competitions: liste,
                 resultats: resultats,
                 fusions: fusionsEquipes,
+                judges: jugesDB,
                 date: new Date().toISOString()
             };
             const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
@@ -11156,6 +11157,7 @@ function ajouterEquipeManuelle() {
                 competitions: liste,
                 resultats: resultats,
                 fusions: fusionsEquipes,
+                judges: jugesDB,
                 date: new Date().toISOString()
             };
             const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
