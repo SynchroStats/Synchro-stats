@@ -400,7 +400,7 @@
             <div style="display:inline-flex;align-items:center;gap:20px;">
                 <div style="font-size:4em;filter:drop-shadow(2px 2px 4px rgba(0,0,0,0.2));">⛸️</div>
                 <div>
-                    <h1 style="margin:0;font-size:3em;background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800;letter-spacing:2px;">SynchroStats</h1>
+                    <h1 style="margin:0;font-size:clamp(1.8em,6vw,3em);background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800;letter-spacing:2px;word-break:break-word;">SynchroStats</h1>
                     <p style="margin:5px 0 0 0;color:#666;font-size:1.1em;font-weight:500;">Season 2025-26 Analysis</p>
                 </div>
             </div>
@@ -8693,33 +8693,31 @@ function ajouterEquipeManuelle() {
             html += `<thead><tr style="background:#f5f5f5;position:sticky;top:0;z-index:2;">
                 <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;width:36px;">#</th>
                 <th style="padding:10px 8px;border:1px solid #ddd;text-align:left;">Team</th>
-                <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;">Cat</th>
-                <th style="padding:10px 8px;border:1px solid #ddd;text-align:left;">Competition</th>
-                <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;">Prog</th>
-                <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;">Rank</th>
+                <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;">S/J</th>
                 <th style="padding:10px 8px;border:1px solid #ddd;text-align:right;font-weight:bold;">Total</th>
                 <th style="padding:10px 8px;border:1px solid #ddd;text-align:right;">Tech</th>
                 <th style="padding:10px 8px;border:1px solid #ddd;text-align:right;">Pres</th>
+                <th style="padding:10px 8px;border:1px solid #ddd;text-align:left;">Competition</th>
+                <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;">Prog</th>
             </tr></thead><tbody>`;
 
             classement.forEach((r, idx) => {
                 const rank = idx + 1;
                 const badgeColor = typeCouleur[r.compType] || '#666';
                 const rowClass = getRankCellClass(rank);
-                const compRankClass = getRankCellClass(r.rang);
                 const progColor = r.prog==='SP'?'#2196F3':r.prog==='FS'?'#4CAF50':'#667eea';
+                const catLabel = r.cat === 'Senior' ? 'S' : 'J';
 
                 html += `<tr>`;
                 html += `<td class="${rowClass}" style="padding:10px 8px;border:1px solid #ddd;text-align:center;font-weight:bold;font-size:1.1em;">${rank}</td>`;
                 html += `<td style="padding:10px 8px;border:1px solid #ddd;border-left:4px solid ${badgeColor};font-weight:bold;">` +
                         teamLink(r.equipe) + `<span style="color:#888;font-size:0.8em;font-weight:normal;"> ${r.nation}</span></td>`;
-                html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:center;font-size:0.85em;">${r.cat}</td>`;
-                html += `<td style="padding:10px 8px;border:1px solid #ddd;font-size:0.88em;cursor:pointer;" onclick="ouvrirCompRanking('${r.compId}','${r.cat}')" title="Voir résultats"><span style="background:${badgeColor};color:white;padding:1px 6px;border-radius:8px;font-size:0.8em;margin-right:4px;">${r.compType}</span>${r.compNom}</td>`;
-                html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:center;"><span style="background:${progColor};color:white;padding:2px 8px;border-radius:8px;font-size:0.82em;">${r.prog}</span></td>`;
-                html += `<td class="${compRankClass}" style="padding:10px 8px;border:1px solid #ddd;text-align:center;font-weight:bold;">${r.rang}</td>`;
+                html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:center;font-size:0.85em;font-weight:bold;">${catLabel}</td>`;
                 html += `<td class="${rowClass}" style="padding:10px 8px;border:1px solid #ddd;text-align:right;font-weight:bold;font-size:1.05em;">${r.total.toFixed(2)}</td>`;
                 html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:right;color:#555;">${r.tech.toFixed(2)}</td>`;
                 html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:right;color:#555;">${r.pres.toFixed(2)}</td>`;
+                html += `<td style="padding:10px 8px;border:1px solid #ddd;font-size:0.88em;cursor:pointer;" onclick="ouvrirCompRanking('${r.compId}','${r.cat}')" title="Voir résultats"><span style="background:${badgeColor};color:white;padding:1px 6px;border-radius:8px;font-size:0.8em;display:inline-block;margin-bottom:2px;">${r.compType}</span><br>${r.compNom}</td>`;
+                html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:center;"><span style="background:${progColor};color:white;padding:2px 8px;border-radius:8px;font-size:0.82em;">${r.prog}</span></td>`;
                 html += `</tr>`;
             });
 
@@ -11341,13 +11339,12 @@ function ajouterEquipeManuelle() {
             html += `<thead><tr style="background:#f5f5f5;position:sticky;top:0;z-index:2;">
                 <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;width:40px;">#</th>
                 <th style="padding:10px 8px;border:1px solid #ddd;text-align:left;">Team</th>
-                <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;">Cat</th>
-                <th style="padding:10px 8px;border:1px solid #ddd;text-align:left;">Competition</th>
-                <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;">Prog</th>
-                <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;">Rank</th>
+                <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;">S/J</th>
                 <th style="padding:10px 8px;border:1px solid #ddd;text-align:right;font-weight:bold;">Total</th>
                 <th style="padding:10px 8px;border:1px solid #ddd;text-align:right;">Tech</th>
                 <th style="padding:10px 8px;border:1px solid #ddd;text-align:right;">Pres</th>
+                <th style="padding:10px 8px;border:1px solid #ddd;text-align:left;">Competition</th>
+                <th style="padding:10px 8px;border:1px solid #ddd;text-align:center;">Prog</th>
             </tr></thead><tbody>`;
 
             classement.forEach((r, idx) => {
@@ -11360,15 +11357,14 @@ function ajouterEquipeManuelle() {
                 html += `<tr>`;
                 html += `<td class="${rowClass}" style="padding:10px 8px;border:1px solid #ddd;text-align:center;font-weight:bold;font-size:1.1em;">${rank}</td>`;
                 html += `<td style="padding:10px 8px;border:1px solid #ddd;border-left:4px solid ${badgeColor};font-weight:bold;">${teamLink(r.equipe)}<span style="color:#888;font-size:0.8em;font-weight:normal;"> ${r.nation}</span></td>`;
-                html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:center;font-size:0.85em;">${r.cat}</td>`;
-                html += `<td style="padding:10px 8px;border:1px solid #ddd;font-size:0.88em;cursor:pointer;" onclick="ouvrirCompRanking('${r.compId}','${r.cat}')" title="Voir résultats">
-                    <span style="background:${badgeColor};color:white;padding:1px 6px;border-radius:8px;font-size:0.8em;margin-right:4px;">${r.compType}</span>${r.compNom}
-                </td>`;
-                html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:center;"><span style="background:${progColor};color:white;padding:2px 8px;border-radius:8px;font-size:0.82em;">${r.prog}</span></td>`;
-                html += `<td class="${compRankClass}" style="padding:10px 8px;border:1px solid #ddd;text-align:center;font-weight:bold;">${r.rang}</td>`;
+                html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:center;font-size:0.85em;font-weight:bold;">${r.cat==='Senior'?'S':'J'}</td>`;
                 html += `<td class="${rowClass}" style="padding:10px 8px;border:1px solid #ddd;text-align:right;font-weight:bold;font-size:1.05em;">${r.total.toFixed(2)}</td>`;
                 html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:right;color:#555;">${r.tech.toFixed(2)}</td>`;
                 html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:right;color:#555;">${r.pres.toFixed(2)}</td>`;
+                html += `<td style="padding:10px 8px;border:1px solid #ddd;font-size:0.88em;cursor:pointer;" onclick="ouvrirCompRanking('${r.compId}','${r.cat}')" title="Voir résultats">
+                    <span style="background:${badgeColor};color:white;padding:1px 6px;border-radius:8px;font-size:0.8em;display:inline-block;margin-bottom:2px;">${r.compType}</span><br>${r.compNom}
+                </td>`;
+                html += `<td style="padding:10px 8px;border:1px solid #ddd;text-align:center;"><span style="background:${progColor};color:white;padding:2px 8px;border-radius:8px;font-size:0.82em;">${r.prog}</span></td>`;
                 html += `</tr>`;
             });
 
