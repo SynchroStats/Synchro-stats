@@ -5506,7 +5506,7 @@ function switchSubTab(section, tab) {
             let html = '';
             
             if (resPC && resPL) {
-                html += '<div style="background:white;padding:20px;border-radius:10px;margin:20px 0;border:2px solid #667eea;">';
+                html += '<div style="background:white;padding:8px;border-radius:10px;margin:20px 0;border:2px solid #667eea;">';
                 html += '<h2 style="color:#1e3c72;margin-top:0;">🏆 Total Score (SP+FS)</h2>';
                 
                 // Calculer les totaux
@@ -5608,7 +5608,7 @@ if (rang === 1) rankBadge = rang;
             // Afficher PC seul si existe
             if (resPC) {
                 const nomProg = resPC.prog === 'SP' ? 'SHORT PROGRAM' : 'SHORT PROGRAM';
-                html += '<div style="background:white;padding:20px;border-radius:10px;margin:20px 0;border:2px solid #2196F3;">';
+                html += '<div style="background:white;padding:8px;border-radius:10px;margin:20px 0;border:2px solid #2196F3;">';
                 html += '<h3 style="color:#1e3c72;margin-top:0;">📘 ' + nomProg + '</h3>';
                 
                 html += '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">';
@@ -5664,7 +5664,7 @@ if (rang === 1) rankBadge = rang;
             // Afficher PL seul si existe
             if (resPL) {
                 const nomProg = resPL.prog === 'FS' ? 'FREE SKATE' : 'FREE SKATE';
-                html += '<div style="background:white;padding:20px;border-radius:10px;margin:20px 0;border:2px solid #4CAF50;">';
+                html += '<div style="background:white;padding:8px;border-radius:10px;margin:20px 0;border:2px solid #4CAF50;">';
                 html += '<h3 style="color:#1e3c72;margin-top:0;">📗 ' + nomProg + '</h3>';
                 
                 html += '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">';
@@ -5721,7 +5721,7 @@ if (rang === 1) rankBadge = rang;
                 // ONGLET 2 : TABLEAU DES JUGES
                 // ONGLET 2 : TABLEAU DES JUGES
         function genererTableauJuges(resPC, resPL) {
-            let html = '<div style="background:white;padding:20px;border-radius:10px;margin:20px 0;">';
+            let html = '<div style="background:white;padding:8px;border-radius:10px;margin:20px 0;">';
             html += '<h2 style="color:#1e3c72;margin-top:0;">👨‍⚖️ Judges</h2>';
             html += '<p style="margin-bottom:15px;">Total score by judge for each team (Tech + Pres - Deductions)</p>';
             
@@ -5919,7 +5919,7 @@ if (rang === 1) rankBadge = rang;
 
                 // ONGLET 3 : TABLEAU DES ÉLÉMENTS
         function genererTableauElements(resPC, resPL) {
-            let html = '<div style="background:white;padding:20px;border-radius:10px;margin:20px 0;">';
+            let html = '<div style="background:white;padding:8px;border-radius:10px;margin:20px 0;">';
             html += '<h2 style="color:#1e3c72;margin-top:0;">🎯 Elements</h2>';
             html += '<p style="margin-bottom:15px;">Performance of each team by element (Level | Score | Rank)</p>';
             
@@ -6095,7 +6095,7 @@ if (rang === 1) rankBadge = rang;
         }
                 // ONGLET 4 : DÉTAILS (avec sous-onglets)
         function genererDetailsAvecSousOnglets(resPC, resPL) {
-            let html = '<div style="background:white;padding:20px;border-radius:10px;margin:20px 0;">';
+            let html = '<div style="background:white;padding:8px;border-radius:10px;margin:20px 0;">';
             html += '<h2 style="color:#1e3c72;margin-top:0;">📋 Complete Detailed Analysis</h2>';
             
             // Sous-onglets PC / PL
@@ -6439,7 +6439,7 @@ if (rang === 1) rankBadge = rang;
         function genererDetailsComplet(res) {
             // Afficher directement le bouton voirRes qui montre tout
             let html = '<div style="padding:20px;">';
-            html += `<div style="background:#e3f2fd;padding:20px;border-radius:10px;margin-bottom:20px;">`;
+            html += `<div style="background:#e3f2fd;padding:8px;border-radius:10px;margin-bottom:20px;">`;
             html += `<h3 style="margin-top:0;">Pour voir l'analyse complète avec tous les détails :</h3>`;
             html += `<p style="margin:15px 0;">All les éléments techniques, composantes, rangs des juges, et comparaisons détaillées.</p>`;
             html += `<button class="btn" style="background:#4CAF50;color:white;font-size:1.1em;padding:15px 30px;" onclick="voirRes('${res.id}')">👁️ Voir Detailed Analysis Complète</button>`;
@@ -6529,7 +6529,7 @@ if (rang === 1) rankBadge = rang;
                         const equipesTriees = [...resPC.data.equipes].sort((a, b) => b.total - a.total);
                         const rangPC = equipesTriees.findIndex(e => e.nom === nomCanonique) + 1;
                         
-                        html += '<div style="background:white;padding:20px;border-radius:10px;margin:20px 0;border:2px solid #2196F3;">';
+                        html += '<div style="background:white;padding:8px;border-radius:10px;margin:20px 0;border:2px solid #2196F3;">';
                         html += '<h3 style="color:#1e3c72;margin-top:0;">📘 SHORT PROGRAM</h3>';
                         html += `<div style="margin-bottom:20px;"><strong>Total Score:</strong> ${equipePC.total.toFixed(2)} | <strong>Rang:</strong> ${rangPC}</div>`;
                         
@@ -6625,7 +6625,7 @@ if (rang === 1) rankBadge = rang;
                         const equipesTriees = [...resPL.data.equipes].sort((a, b) => b.total - a.total);
                         const rangPL = equipesTriees.findIndex(e => e.nom === nomCanonique) + 1;
                         
-                        html += '<div style="background:white;padding:20px;border-radius:10px;margin:20px 0;border:2px solid #4CAF50;">';
+                        html += '<div style="background:white;padding:8px;border-radius:10px;margin:20px 0;border:2px solid #4CAF50;">';
                         html += '<h3 style="color:#1e3c72;margin-top:0;">📗 FREE SKATE</h3>';
                         html += `<div style="margin-bottom:20px;"><strong>Total Score:</strong> ${equipePL.total.toFixed(2)} | <strong>Rang:</strong> ${rangPL}</div>`;
                         
@@ -9524,7 +9524,7 @@ function ajouterEquipeManuelle() {
         }
                 // ONGLET 4 : DÉTAILS (avec sous-onglets)
         function genererDetailsAvecSousOnglets(resPC, resPL) {
-            let html = '<div style="background:white;padding:20px;border-radius:10px;margin:20px 0;">';
+            let html = '<div style="background:white;padding:8px;border-radius:10px;margin:20px 0;">';
             html += '<h2 style="color:#1e3c72;margin-top:0;">📋 Complete Detailed Analysis</h2>';
             
             // Sous-onglets PC / PL
@@ -9868,7 +9868,7 @@ function ajouterEquipeManuelle() {
         function genererDetailsComplet(res) {
             // Afficher directement le bouton voirRes qui montre tout
             let html = '<div style="padding:20px;">';
-            html += `<div style="background:#e3f2fd;padding:20px;border-radius:10px;margin-bottom:20px;">`;
+            html += `<div style="background:#e3f2fd;padding:8px;border-radius:10px;margin-bottom:20px;">`;
             html += `<h3 style="margin-top:0;">Pour voir l'analyse complète avec tous les détails :</h3>`;
             html += `<p style="margin:15px 0;">All les éléments techniques, composantes, rangs des juges, et comparaisons détaillées.</p>`;
             html += `<button class="btn" style="background:#4CAF50;color:white;font-size:1.1em;padding:15px 30px;" onclick="voirRes('${res.id}')">👁️ Voir Detailed Analysis Complète</button>`;
@@ -9958,7 +9958,7 @@ function ajouterEquipeManuelle() {
                         const equipesTriees = [...resPC.data.equipes].sort((a, b) => b.total - a.total);
                         const rangPC = equipesTriees.findIndex(e => e.nom === nomCanonique) + 1;
                         
-                        html += '<div style="background:white;padding:20px;border-radius:10px;margin:20px 0;border:2px solid #2196F3;">';
+                        html += '<div style="background:white;padding:8px;border-radius:10px;margin:20px 0;border:2px solid #2196F3;">';
                         html += '<h3 style="color:#1e3c72;margin-top:0;">📘 SHORT PROGRAM</h3>';
                         html += `<div style="margin-bottom:20px;"><strong>Total Score:</strong> ${equipePC.total.toFixed(2)} | <strong>Rang:</strong> ${rangPC}</div>`;
                         
@@ -10054,7 +10054,7 @@ function ajouterEquipeManuelle() {
                         const equipesTriees = [...resPL.data.equipes].sort((a, b) => b.total - a.total);
                         const rangPL = equipesTriees.findIndex(e => e.nom === nomCanonique) + 1;
                         
-                        html += '<div style="background:white;padding:20px;border-radius:10px;margin:20px 0;border:2px solid #4CAF50;">';
+                        html += '<div style="background:white;padding:8px;border-radius:10px;margin:20px 0;border:2px solid #4CAF50;">';
                         html += '<h3 style="color:#1e3c72;margin-top:0;">📗 FREE SKATE</h3>';
                         html += `<div style="margin-bottom:20px;"><strong>Total Score:</strong> ${equipePL.total.toFixed(2)} | <strong>Rang:</strong> ${rangPL}</div>`;
                         
