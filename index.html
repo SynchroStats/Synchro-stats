@@ -6149,7 +6149,7 @@ if (rang === 1) rankBadge = rang;
                 const rangTech = scoresTech.findIndex(s => s.nom === team.nom) + 1;
                 const rangPres = scoresPres.findIndex(s => s.nom === team.nom) + 1;
                 
-                html += `<div class="team-section" style="margin-bottom:40px;border:2px solid #667eea;border-radius:10px;padding:20px;background:white;box-shadow:0 4px 6px rgba(0,0,0,0.1);">`;
+                html += `<div class="team-section" style="margin-bottom:10px;border:2px solid #667eea;border-radius:10px;padding:6px;background:white;box-shadow:0 4px 6px rgba(0,0,0,0.1);">`;
                 
                 // En-tête avec rangs technique et présentation
                 html += `<div class="team-header-detailed">
@@ -8755,7 +8755,7 @@ function ajouterEquipeManuelle() {
         function afficherTableauClassement(classement) {
             const typeCouleur = { 'Regional':'#9c27b0','National':'#2196F3','International':'#4CAF50','Challenger Series':'#FF9800','Junior World Championships':'#f44336','World Championships':'#f44336' };
 
-            let html = `<div style="background:white;border-radius:12px;padding:20px;border:2px solid #e0e0e0;">`;
+            let html = `<div style="background:white;border-radius:12px;padding:6px;border:2px solid #e0e0e0;">`;
             html += `<div style="margin-bottom:16px;"><span style="background:#667eea;color:white;padding:4px 14px;border-radius:20px;font-weight:bold;font-size:0.9em;">📊 ${classement.length} result${classement.length !== 1 ? 's' : ''}</span></div>`;
             html += `<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">`;
             html += `<table style="width:100%;min-width:520px;border-collapse:collapse;">`;
@@ -9578,7 +9578,7 @@ function ajouterEquipeManuelle() {
                 const rangTech = scoresTech.findIndex(s => s.nom === team.nom) + 1;
                 const rangPres = scoresPres.findIndex(s => s.nom === team.nom) + 1;
                 
-                html += `<div class="team-section" style="margin-bottom:40px;border:2px solid #667eea;border-radius:10px;padding:20px;background:white;box-shadow:0 4px 6px rgba(0,0,0,0.1);">`;
+                html += `<div class="team-section" style="margin-bottom:10px;border:2px solid #667eea;border-radius:10px;padding:6px;background:white;box-shadow:0 4px 6px rgba(0,0,0,0.1);">`;
                 
                 // En-tête avec rangs technique et présentation
                 html += `<div class="team-header-detailed">
@@ -11399,7 +11399,7 @@ function ajouterEquipeManuelle() {
         function afficherTableauClassement(classement) {
             const typeCouleur = { 'Regional':'#9c27b0','National':'#2196F3','International':'#4CAF50','Challenger Series':'#FF9800','Junior World Championships':'#f44336','World Championships':'#f44336' };
             
-            let html = `<div style="background:white;border-radius:12px;padding:20px;border:2px solid #e0e0e0;">`;
+            let html = `<div style="background:white;border-radius:12px;padding:6px;border:2px solid #e0e0e0;">`;
             html += `<div style="margin-bottom:16px;display:flex;align-items:center;gap:12px;">
                 <span style="background:#667eea;color:white;padding:4px 12px;border-radius:20px;font-weight:bold;font-size:0.9em;">📊 ${classement.length} result${classement.length > 1 ? 's' : ''}</span>
             </div>`;
