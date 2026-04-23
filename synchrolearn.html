@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SynchroLearn — Formation Coaching Patinage</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { min-height: 100vh; }
+body { background: #080c14; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const TOPICS = [
+{ id:“physio”, icon:“⚡”, label:“Physiologie & Filières énergétiques”, color:”#38bdf8”,
+subtopics:[“Filières ATP-CP, glycolytique et aérobie dans le patinage synchronisé”,“VO2max et capacité aérobie chez le patineur”,“Lactate et seuils d’intensité : comment les mesurer et les utiliser”,“Réponses cardio-vasculaires à l’effort sur glace”]},
+{ id:“force”, icon:“💪”, label:“Force, Puissance & Explosivité”, color:”#a78bfa”,
+subtopics:[“Développer la puissance musculaire chez le patineur synchronisé”,“Entraînement pliométrique et transfert au patinage”,“Force maximale vs force explosive : quand et comment les développer”,“Gainage et stabilisation du tronc pour le patinage”]},
+{ id:“glisse”, icon:“🛼”, label:“Qualités de glisse & Technique”, color:”#34d399”,
+subtopics:[“Biomécanique de la poussée en patinage synchronisé”,“Équilibre unipodal et proprioception sur glace”,“Analyse technique des éléments spécifiques (bloc, ligne, cercle, intersection)”,“Transfert des qualités athlétiques hors-glace vers la glisse”]},
+{ id:“planif”, icon:“📅”, label:“Périodisation & Planification”, color:”#fbbf24”,
+subtopics:[“Modèles de périodisation (classique, ondulatoire, par blocs) appliqués au patinage”,“Construire une saison de patinage synchronisé de A à Z”,“Gestion de la charge d’entraînement : charge interne vs externe”,“Planifier avec des contraintes de glace limitées”]},
+{ id:“recup”, icon:“🌙”, label:“Récupération & Nutrition”, color:”#f472b6”,
+subtopics:[“Stratégies de récupération après séance : cryothérapie, sommeil, nutrition”,“Nutrition du patineur en période de compétition”,“Gestion de la fatigue en fin de saison”,“HRV et monitoring de l’état de forme”]},
+{ id:“mental”, icon:“🧠”, label:“Préparation mentale & Focus”, color:”#fb923c”,
+subtopics:[“Gestion du stress compétitif chez les patineurs synchronisés”,“Routines pré-compétition : construire et individualiser”,“Imagerie mentale et visualisation en patinage”,“État de flow : conditions et moyens de le favoriser”]},
+{ id:“management”, icon:“🤝”, label:“Management de groupe & Leadership”, color:”#22d3ee”,
+subtopics:[“Dynamiques de groupe dans une équipe de patinage synchronisé”,“Styles de leadership en sport collectif : lequel adopter ?”,“Gérer les conflits au sein d’une équipe”,“Créer une culture d’équipe forte et cohésive”]},
+{ id:“motivation”, icon:“🔥”, label:“Motivation individuelle & collective”, color:”#ef4444”,
+subtopics:[“Théorie de l’autodétermination appliquée au sport”,“Motivation intrinsèque vs extrinsèque : impact et leviers”,“Fixer des objectifs efficaces (SMART, processus vs résultats)”,“Gérer la démotivation et les baisses de régime en cours de saison”]},
+{ id:“compet”, icon:“🏆”, label:“Préparation à la compétition”, color:”#84cc16”,
+subtopics:[“Affûtage (tapering) : principes et application en patinage synchronisé”,“Warm-up officiel de 6 minutes : stratégie et gestion collective”,“Préparer l’équipe psychologiquement J-7 à J-1”,“Analyse vidéo et scouting des adversaires”]},
+{ id:“synchro”, icon:“❄️”, label:“Spécificités du Patinage Synchronisé”, color:”#818cf8”,
+subtopics:[“Règlement ISU et éléments notés en patinage synchronisé”,“Cohésion spatiale et synchronisation : comment la travailler”,“Rôle du capitaine et leadership interne à l’équipe”,“Tendances actuelles du patinage synchronisé de haut niveau”]},
+];
+
+const SYSTEM_PROMPT = `Tu es un expert en sciences du sport et en coaching de patinage synchronisé, avec une maîtrise approfondie de la littérature scientifique internationale (PubMed, JSTOR, revues STAPS). Tu t'adresses à Frantz, un préparateur physique et entraîneur assistant de patinage synchronisé titulaire d'un Master STAPS PPMR, qui travaille avec des équipes tchèques. Tes réponses sont ancrées dans la littérature scientifique récente (cite des auteurs, des études, des modèles reconnus), pratiques et directement applicables au patinage synchronisé, en français avec la terminologie scientifique appropriée, structurées avec des titres clairs (## pour les titres, **texte** pour le gras).`;
+
+const QCM_PROMPT = (sub) => `Génère exactement 4 questions QCM sur le thème : "${sub}", dans le contexte du patinage synchronisé et des sciences du sport. Réponds UNIQUEMENT en JSON valide, sans markdown, sans backticks. Format : [{"question":"...","options":["A. ...","B. ...","C. ...","D. ..."],"correct":0,"explanation":"..."},{"question":"...","options":["A. ...","B. ...","C. ...","D. ..."],"correct":1,"explanation":"..."},{"question":"...","options":["A. ...","B. ...","C. ...","D. ..."],"correct":2,"explanation":"..."},{"question":"...","options":["A. ...","B. ...","C. ...","D. ..."],"correct":3,"explanation":"..."}] Le champ "correct" est l'index 0-3 de la bonne réponse. Explication = 1 phrase.`;
+
+function MarkdownRenderer({ text }) {
+const html = text
+.replace(/^## (.+)$/gm, ‘<h2 class="md-h2">$1</h2>’)
+.replace(/^### (.+)$/gm, ‘<h3 class="md-h3">$1</h3>’)
+.replace(/**(.+?)**/g, ‘<strong>$1</strong>’)
+.replace(/*(.+?)*/g, ‘<em>$1</em>’)
+.replace(/^- (.+)$/gm, ‘<li>$1</li>’)
+.replace(/(<li>.*</li>\n?)+/g, m => `<ul>${m}</ul>`)
+.replace(/\n\n/g, ‘</p><p>’);
+return <div className=“markdown-body” dangerouslySetInnerHTML={{ __html: `<p>${html}</p>` }} />;
+}
+
+function IceCrystal({ size=24, opacity=0.15, spin=false }) {
+return (
+<svg width={size} height={size} viewBox=“0 0 24 24” style={{ opacity, animation: spin ? “spin 8s linear infinite” : “none” }} fill=“none”>
+<line x1="12" y1="2" x2="12" y2="22" stroke="white" strokeWidth="1.5"/>
+<line x1="2" y1="12" x2="22" y2="12" stroke="white" strokeWidth="1.5"/>
+<line x1="4.93" y1="4.93" x2="19.07" y2="19.07" stroke="white" strokeWidth="1.5"/>
+<line x1="19.07" y1="4.93" x2="4.93" y2="19.07" stroke="white" strokeWidth="1.5"/>
+<circle cx="12" cy="12" r="2.5" stroke="white" strokeWidth="1.5"/>
+<circle cx="12" cy="2" r="1.2" fill="white"/><circle cx="12" cy="22" r="1.2" fill="white"/>
+<circle cx="2" cy="12" r="1.2" fill="white"/><circle cx="22" cy="12" r="1.2" fill="white"/>
+</svg>
+);
+}
+
+function ApiKeyScreen({ onSave }) {
+const [key, setKey] = useState(””);
+return (
+<div style={{ minHeight:“100vh”, background:”#080c14”, display:“flex”, alignItems:“center”, justifyContent:“center”, padding:24, fontFamily:”‘DM Sans’,sans-serif” }}>
+<div style={{ maxWidth:480, width:“100%”, textAlign:“center” }}>
+<IceCrystal size={48} opacity={0.6} />
+<h1 style={{ fontFamily:”‘DM Serif Display’,serif”, fontSize:“2rem”, color:”#fff”, margin:“20px 0 8px” }}>SynchroLearn</h1>
+<p style={{ color:”#64748b”, marginBottom:32, lineHeight:1.6 }}>Entre ta clé API Anthropic pour commencer.<br/>Elle sera sauvegardée sur cet appareil.</p>
+<div style={{ background:“rgba(255,255,255,0.04)”, border:“1px solid rgba(255,255,255,0.1)”, borderRadius:12, padding:“20px 24px”, textAlign:“left”, marginBottom:20 }}>
+<p style={{ color:”#94a3b8”, fontSize:“0.85rem”, marginBottom:12 }}>
+<strong style={{ color:”#e2eaf5” }}>Obtenir une clé API :</strong><br/>
+1. Va sur <span style={{ color:”#38bdf8” }}>console.anthropic.com</span><br/>
+2. Crée un compte (gratuit)<br/>
+3. “API Keys” → “Create Key”<br/>
+4. Copie la clé (commence par <code style={{ color:”#38bdf8” }}>sk-ant-</code>)
+</p>
+<p style={{ color:”#64748b”, fontSize:“0.78rem” }}>💡 Coût estimé : ~0.01€ par cours généré</p>
+</div>
+<input
+type=“password”
+placeholder=“sk-ant-api03-…”
+value={key}
+onChange={e => setKey(e.target.value)}
+style={{ width:“100%”, background:“rgba(255,255,255,0.04)”, border:“1px solid rgba(255,255,255,0.1)”, borderRadius:12, padding:“14px 18px”, color:”#e2eaf5”, fontFamily:”‘DM Sans’,sans-serif”, fontSize:“0.9rem”, outline:“none”, marginBottom:12 }}
+/>
+<button
+onClick={() => { if(key.trim().startsWith(“sk-ant-”)) { localStorage.setItem(“sl_apikey”, key.trim()); onSave(key.trim()); } }}
+disabled={!key.trim().startsWith(“sk-ant-”)}
+style={{ width:“100%”, background: key.trim().startsWith(“sk-ant-”) ? “#38bdf8” : “#1e293b”, border:“none”, borderRadius:12, padding:“14px”, color: key.trim().startsWith(“sk-ant-”) ? “#000” : “#475569”, fontFamily:”‘DM Sans’,sans-serif”, fontWeight:600, fontSize:“0.95rem”, cursor: key.trim().startsWith(“sk-ant-”) ? “pointer” : “not-allowed” }}
+>
+Commencer →
+</button>
+</div>
+</div>
+);
+}
+
+function App() {
+const [apiKey, setApiKey] = useState(() => localStorage.getItem(“sl_apikey”) || “”);
+const [phase, setPhase] = useState(“home”);
+const [selectedTopic, setSelectedTopic] = useState(null);
+const [selectedSubtopic, setSelectedSubtopic] = useState(null);
+const [customTopic, setCustomTopic] = useState(””);
+const [course, setCourse] = useState(””);
+const [questions, setQuestions] = useState([]);
+const [answers, setAnswers] = useState({});
+const [submitted, setSubmitted] = useState(false);
+const [error, setError] = useState(null);
+const [extending, setExtending] = useState(false);
+const courseRef = useRef(null);
+
+if (!apiKey) return <ApiKeyScreen onSave={setApiKey} />;
+
+const topic = TOPICS.find(t => t.id === selectedTopic);
+const accentColor = topic?.color || “#38bdf8”;
+
+async function callClaude(userMessage, system = SYSTEM_PROMPT) {
+const body = { model:“claude-sonnet-4-6”, max_tokens:1000, stream:false, messages:[{ role:“user”, content:userMessage }] };
+if (system) body.system = system;
+let response, data;
+try {
+response = await fetch(“https://api.anthropic.com/v1/messages”, {
+method:“POST”,
+headers:{ “Content-Type”:“application/json”, “x-api-key”: apiKey, “anthropic-version”:“2023-06-01”, “anthropic-dangerous-direct-browser-access”:“true” },
+body: JSON.stringify(body),
+});
+} catch(e) { throw new Error(“Réseau inaccessible : “ + e.message); }
+try { data = await response.json(); } catch(e) { throw new Error(“Réponse illisible (HTTP “ + response.status + “)”); }
+if (!response.ok) throw new Error(“HTTP “ + response.status + “ — “ + (data?.error?.message || “erreur API”));
+if (!data.content || !Array.isArray(data.content)) throw new Error(“Structure inattendue”);
+return data.content.map(b => b.text || “”).join(””);
+}
+
+async function generateCourse(subtopic) {
+setPhase(“loading-course”); setError(null); setCourse(””); setQuestions([]); setAnswers({}); setSubmitted(false);
+const cacheKey = “sl_course_” + btoa(encodeURIComponent(subtopic.slice(0,60))).replace(/=/g,””);
+const cached = localStorage.getItem(cacheKey);
+if (cached) { setCourse(cached); setPhase(“course”); return; }
+try {
+const text = await callClaude(`Fais-moi un cours complet et rigoureux sur : "${subtopic}", en lien avec le patinage synchronisé. Structure avec 4-5 sections claires, cite des auteurs et études scientifiques.`);
+setCourse(text);
+try { localStorage.setItem(cacheKey, text); } catch(e){}
+setPhase(“course”);
+} catch(e) { setError(“Erreur : “ + e.message); setPhase(“subtopic”); }
+}
+
+async function extendCourse() {
+setExtending(true); setError(null);
+try {
+const more = await callClaude(`Suite du cours sur "${selectedSubtopic}" (patinage synchronisé). Continue avec des sections supplémentaires : exemples pratiques, applications sur glace, points avancés.\n\nDernier paragraphe du cours :\n${course.slice(-600)}`);
+const extended = course + “\n\n—\n\n” + more;
+setCourse(extended);
+const cacheKey = “sl_course_” + btoa(encodeURIComponent(selectedSubtopic.slice(0,60))).replace(/=/g,””);
+try { localStorage.setItem(cacheKey, extended); } catch(e){}
+} catch(e) { setError(“Erreur approfondissement : “ + e.message); }
+setExtending(false);
+}
+
+async function generateQCM() {
+setPhase(“loading-qcm”); setError(null);
+try {
+const raw = await callClaude(QCM_PROMPT(selectedSubtopic), “Tu es un générateur de QCM. Réponds UNIQUEMENT en JSON valide, rien d’autre.”);
+const clean = raw.replace(/`json|`/g,””).trim();
+const parsed = JSON.parse(clean);
+setQuestions(parsed); setAnswers({}); setSubmitted(false); setPhase(“qcm”);
+} catch(e) { setError(“Erreur QCM : “ + e.message); setPhase(“course”); }
+}
+
+function reset() { setPhase(“home”); setSelectedTopic(null); setSelectedSubtopic(null); setCustomTopic(””); setCourse(””); setQuestions([]); setAnswers({}); setSubmitted(false); setError(null); }
+
+const score = questions.filter((q,i) => answers[i] === q.correct).length;
+const pct = questions.length ? Math.round(score/questions.length*100) : 0;
+
+return (
+<>
+<style>{`@keyframes spin { to { transform: rotate(360deg); } } @keyframes dots { 0%,20%{content:'.'} 40%{content:'..'} 60%,100%{content:'...'} } * { box-sizing:border-box; margin:0; padding:0; } body { background:#080c14; font-family:'DM Sans',sans-serif; color:#e2eaf5; } .app { min-height:100vh; position:relative; overflow-x:hidden; } .bg-grid { position:fixed; inset:0; pointer-events:none; z-index:0; background-image:linear-gradient(rgba(56,189,248,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,0.04) 1px,transparent 1px); background-size:48px 48px; } .bg-glow { position:fixed; pointer-events:none; z-index:0; border-radius:50%; filter:blur(120px); opacity:0.1; } .content { position:relative; z-index:1; } .header { padding:24px 24px 0; display:flex; align-items:center; justify-content:space-between; } .logo { display:flex; align-items:center; gap:10px; } .logo-text { font-family:'DM Serif Display',serif; font-size:1.4rem; color:#fff; } .logo-text span { color:#38bdf8; } .back-btn { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:#94a3b8; padding:8px 14px; border-radius:8px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.85rem; } .settings-btn { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:#64748b; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:0.8rem; font-family:'DM Sans',sans-serif; } .home-hero { text-align:center; padding:48px 24px 36px; } .home-title { font-family:'DM Serif Display',serif; font-size:clamp(1.8rem,5vw,3rem); color:#fff; margin-bottom:12px; line-height:1.15; } .home-title em { color:#38bdf8; font-style:italic; } .home-sub { color:#64748b; max-width:440px; margin:0 auto; line-height:1.6; } .topics-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; padding:8px 20px 48px; max-width:1080px; margin:0 auto; } .topic-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:22px; cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; } .topic-card:hover { border-color:var(--c); transform:translateY(-2px); box-shadow:0 8px 28px -8px var(--c); } .topic-icon { font-size:1.8rem; display:block; margin-bottom:10px; } .topic-label { font-size:0.9rem; font-weight:500; color:#e2eaf5; line-height:1.4; } .topic-count { font-size:0.75rem; color:#475569; margin-top:6px; } .topic-arrow { position:absolute; right:18px; top:50%; transform:translateY(-50%); color:#334155; transition:all 0.2s; } .topic-card:hover .topic-arrow { color:var(--c); transform:translateY(-50%) translateX(4px); } .panel { max-width:660px; margin:0 auto; padding:36px 20px; } .panel-title { font-family:'DM Serif Display',serif; font-size:1.7rem; color:#fff; margin-bottom:6px; } .panel-sub { color:#64748b; font-size:0.88rem; margin-bottom:28px; } .subtopic-list { display:flex; flex-direction:column; gap:10px; margin-bottom:28px; } .subtopic-btn { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-left:3px solid var(--c); border-radius:10px; padding:14px 18px; color:#cbd5e1; font-size:0.88rem; font-family:'DM Sans',sans-serif; cursor:pointer; text-align:left; transition:all 0.2s; line-height:1.4; } .subtopic-btn:hover { background:rgba(255,255,255,0.06); color:#fff; transform:translateX(4px); } .divider { display:flex; align-items:center; gap:12px; margin:20px 0; } .divider-line { flex:1; height:1px; background:rgba(255,255,255,0.08); } .divider-text { color:#475569; font-size:0.78rem; } .custom-input { width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px 16px; color:#e2eaf5; font-family:'DM Sans',sans-serif; font-size:0.88rem; outline:none; resize:vertical; min-height:72px; margin-bottom:10px; } .custom-input:focus { border-color:var(--c); } .primary-btn { background:var(--c); border:none; border-radius:10px; padding:13px 24px; color:#000; font-family:'DM Sans',sans-serif; font-weight:600; font-size:0.9rem; cursor:pointer; transition:all 0.2s; display:inline-flex; align-items:center; gap:8px; } .primary-btn:hover { opacity:0.88; } .primary-btn:disabled { opacity:0.35; cursor:not-allowed; } .ghost-btn { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:13px 22px; color:#94a3b8; font-family:'DM Sans',sans-serif; font-size:0.9rem; cursor:pointer; transition:all 0.2s; } .ghost-btn:hover { background:rgba(255,255,255,0.08); color:#e2eaf5; } .ghost-btn:disabled { opacity:0.4; cursor:not-allowed; } .loading-screen { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:60vh; gap:20px; } .loading-text { font-family:'DM Serif Display',serif; font-size:1.4rem; color:#94a3b8; } .loading-text::after { content:'...'; animation:dots 1.5s steps(4,end) infinite; } .course-wrapper { max-width:700px; margin:0 auto; padding:36px 20px; } .course-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:100px; padding:5px 12px; font-size:0.78rem; color:#94a3b8; margin-bottom:16px; } .course-title { font-family:'DM Serif Display',serif; font-size:1.7rem; color:#fff; margin-bottom:24px; line-height:1.25; } .course-body { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:28px; margin-bottom:24px; } .markdown-body { line-height:1.75; color:#cbd5e1; font-size:0.91rem; } .markdown-body .md-h2 { font-family:'DM Serif Display',serif; font-size:1.2rem; color:#fff; margin:24px 0 10px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:6px; } .markdown-body .md-h3 { font-size:0.95rem; font-weight:600; color:#e2eaf5; margin:18px 0 6px; } .markdown-body p { margin-bottom:12px; } .markdown-body strong { color:#e2eaf5; font-weight:600; } .markdown-body em { color:#94a3b8; } .markdown-body ul { padding-left:18px; margin-bottom:12px; } .markdown-body li { margin-bottom:5px; } .course-actions { display:flex; gap:10px; flex-wrap:wrap; } .qcm-wrapper { max-width:700px; margin:0 auto; padding:36px 20px; } .qcm-progress { height:3px; background:rgba(255,255,255,0.08); border-radius:2px; margin-bottom:20px; overflow:hidden; } .qcm-progress-bar { height:100%; background:var(--c); border-radius:2px; transition:width 0.5s; } .question-card { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:24px; margin-bottom:16px; } .question-number { font-size:0.72rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--c); margin-bottom:8px; } .question-text { font-size:0.95rem; color:#e2eaf5; font-weight:500; margin-bottom:16px; line-height:1.5; } .options { display:flex; flex-direction:column; gap:8px; } .option-btn { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:9px; padding:12px 16px; color:#94a3b8; font-family:'DM Sans',sans-serif; font-size:0.86rem; cursor:pointer; text-align:left; transition:all 0.2s; line-height:1.4; } .option-btn:hover:not(.disabled) { border-color:var(--c); color:#e2eaf5; } .option-btn.selected { border-color:var(--c); color:#fff; background:rgba(56,189,248,0.08); } .option-btn.correct-answer { border-color:#34d399; color:#34d399; background:rgba(52,211,153,0.08); } .option-btn.wrong-answer { border-color:#f87171; color:#f87171; background:rgba(248,113,113,0.08); } .option-btn.disabled { cursor:default; } .explanation { margin-top:14px; padding:12px 14px; background:rgba(255,255,255,0.04); border-left:3px solid #34d399; border-radius:7px; font-size:0.83rem; color:#94a3b8; line-height:1.5; } .explanation strong { color:#34d399; } .error-msg { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.3); border-radius:9px; padding:10px 14px; color:#fca5a5; font-size:0.85rem; margin:14px 0; } .submit-row { margin-top:20px; display:flex; gap:12px; align-items:center; flex-wrap:wrap; } .score-section { text-align:center; padding:32px 0 8px; } .score-ring { width:150px; height:150px; margin:0 auto 24px; position:relative; } .score-ring svg { transform:rotate(-90deg); } .score-text { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; } .score-num { font-family:'DM Serif Display',serif; font-size:2.6rem; color:#fff; line-height:1; } .score-denom { font-size:0.82rem; color:#64748b; } .score-label { font-family:'DM Serif Display',serif; font-size:1.5rem; color:#fff; margin-bottom:10px; } .score-comment { color:#64748b; font-size:0.9rem; margin-bottom:28px; line-height:1.6; } .results-actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; } hr.section-sep { border:none; border-top:1px solid rgba(255,255,255,0.08); margin:24px 0; }`}</style>
+
+```
+<div className="app" style={{"--c": accentColor}}>
+  <div className="bg-grid"/>
+  <div className="bg-glow" style={{width:500,height:500,background:accentColor,top:-180,right:-180}}/>
+  <div className="bg-glow" style={{width:350,height:350,background:"#818cf8",bottom:-100,left:-100}}/>
+  <div className="content">
+
+    {/* HEADER */}
+    <div className="header">
+      <div className="logo">
+        <IceCrystal size={26} opacity={0.7}/>
+        <span className="logo-text">Synchro<span>Learn</span></span>
+      </div>
+      <div style={{display:"flex",gap:8}}>
+        {phase !== "home" && <button className="back-btn" onClick={reset}>← Accueil</button>}
+        <button className="settings-btn" onClick={() => { if(confirm("Changer de clé API ?")) { localStorage.removeItem("sl_apikey"); setApiKey(""); }}}>🔑</button>
+      </div>
+    </div>
+
+    {/* HOME */}
+    {phase === "home" && <>
+      <div className="home-hero">
+        <h1 className="home-title">Ta formation<br/><em>coaching</em> sur mesure</h1>
+        <p className="home-sub">Cours scientifiques + QCM interactifs sur le patinage synchronisé, la préparation physique et le management d'équipe.</p>
+      </div>
+      <div className="topics-grid">
+        {TOPICS.map(t => (
+          <div key={t.id} className="topic-card" style={{"--c":t.color}} onClick={() => { setSelectedTopic(t.id); setPhase("subtopic"); }}>
+            <span className="topic-icon">{t.icon}</span>
+            <div className="topic-label">{t.label}</div>
+            <div className="topic-count">{t.subtopics.length} thèmes proposés</div>
+            <span className="topic-arrow">→</span>
+          </div>
+        ))}
+      </div>
+    </>}
+
+    {/* SUBTOPIC */}
+    {phase === "subtopic" && topic && (
+      <div className="panel" style={{"--c":topic.color}}>
+        <div className="panel-title">{topic.icon} {topic.label}</div>
+        <p className="panel-sub">Choisis un thème ou entre le tien</p>
+        <div className="subtopic-list">
+          {topic.subtopics.map((s,i) => (
+            <button key={i} className="subtopic-btn" style={{"--c":topic.color}} onClick={() => { setSelectedSubtopic(s); generateCourse(s); }}>
+              <span style={{marginRight:8,opacity:0.5}}>→</span>{s}
+            </button>
+          ))}
+        </div>
+        {error && <div className="error-msg">{error}</div>}
+        <div className="divider"><div className="divider-line"/><span className="divider-text">ou ton propre sujet</span><div className="divider-line"/></div>
+        <textarea className="custom-input" style={{"--c":topic.color}} placeholder="Ex : Comment gérer la fatigue en fin de saison ?" value={customTopic} onChange={e => setCustomTopic(e.target.value)}/>
+        <button className="primary-btn" style={{background:topic.color}} disabled={!customTopic.trim()} onClick={() => { const s=customTopic.trim(); setSelectedSubtopic(s); generateCourse(s); }}>Générer le cours →</button>
+      </div>
+    )}
+
+    {/* LOADING COURSE */}
+    {phase === "loading-course" && (
+      <div className="loading-screen">
+        <IceCrystal size={64} opacity={0.5} spin={true}/>
+        <div className="loading-text">Génération du cours</div>
+        <p style={{color:"#334155",fontSize:"0.83rem"}}>{selectedSubtopic}</p>
+      </div>
+    )}
+
+    {/* LOADING QCM */}
+    {phase === "loading-qcm" && (
+      <div className="loading-screen">
+        <IceCrystal size={64} opacity={0.5} spin={true}/>
+        <div className="loading-text">Préparation du QCM</div>
+      </div>
+    )}
+
+    {/* COURSE */}
+    {phase === "course" && (
+      <div className="course-wrapper" ref={courseRef}>
+        <div className="course-tag"><span>{topic?.icon}</span> {topic?.label}</div>
+        <h2 className="course-title">{selectedSubtopic}</h2>
+        <div className="course-body">
+          <MarkdownRenderer text={course}/>
+          {extending && <div style={{textAlign:"center",padding:"20px 0",color:"#64748b",fontSize:"0.88rem"}}><IceCrystal size={28} opacity={0.4} spin={true}/><div style={{marginTop:8}}>Approfondissement…</div></div>}
+        </div>
+        {error && <div className="error-msg">{error}</div>}
+        <div className="course-actions">
+          <button className="primary-btn" style={{background:accentColor}} onClick={generateQCM} disabled={extending}>🎯 Tester mes connaissances</button>
+          <button className="ghost-btn" onClick={extendCourse} disabled={extending}>{extending ? "⏳ En cours…" : "📖 Approfondir"}</button>
+          <button className="ghost-btn" onClick={() => setPhase("subtopic")}>← Changer</button>
+        </div>
+      </div>
+    )}
+
+    {/* QCM */}
+    {(phase === "qcm" || phase === "results") && questions.length > 0 && (
+      <div className="qcm-wrapper">
+        <div className="qcm-progress"><div className="qcm-progress-bar" style={{width: `${Object.keys(answers).length/questions.length*100}%`}}/></div>
+        <h2 className="panel-title" style={{marginBottom:4}}>QCM</h2>
+        <p className="panel-sub" style={{marginBottom:24}}>{selectedSubtopic}</p>
+        {questions.map((q,qi) => {
+          const ua = answers[qi];
+          return (
+            <div key={qi} className="question-card">
+              <div className="question-number">Question {qi+1}</div>
+              <div className="question-text">{q.question}</div>
+              <div className="options">
+                {q.options.map((opt,ai) => {
+                  let cls = "option-btn";
+                  if(submitted) { cls+=" disabled"; if(ai===q.correct) cls+=" correct-answer"; else if(ai===ua && ua!==q.correct) cls+=" wrong-answer"; }
+                  else if(ai===ua) cls+=" selected";
+                  return <button key={ai} className={cls} onClick={() => !submitted && setAnswers(p => ({...p,[qi]:ai}))}>{opt}</button>;
+                })}
+              </div>
+              {submitted && <div className="explanation"><strong>Explication :</strong> {q.explanation}</div>}
+            </div>
+          );
+        })}
+        {!submitted && (
+          <div className="submit-row">
+            <button className="primary-btn" style={{background:accentColor}} onClick={() => { if(Object.keys(answers).length < questions.length){setError("Réponds à toutes les questions !"); return;} setError(null); setSubmitted(true); setPhase("results"); }}>Valider</button>
+            <span style={{color:"#475569",fontSize:"0.83rem"}}>{Object.keys(answers).length}/{questions.length} répondues</span>
+          </div>
+        )}
+        {error && <div className="error-msg">{error}</div>}
+        {submitted && (
+          <div className="score-section">
+            <hr className="section-sep"/>
+            <div className="score-ring">
+              <svg width="150" height="150" viewBox="0 0 150 150">
+                <circle cx="75" cy="75" r="64" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="9"/>
+                <circle cx="75" cy="75" r="64" fill="none" stroke={accentColor} strokeWidth="9" strokeDasharray={2*Math.PI*64} strokeDashoffset={2*Math.PI*64*(1-pct/100)} strokeLinecap="round" style={{transition:"stroke-dashoffset 1s ease"}}/>
+              </svg>
+              <div className="score-text"><span className="score-num">{score}</span><span className="score-denom">/{questions.length}</span></div>
+            </div>
+            <div className="score-label">{score===questions.length?"Parfait ! 🏆":pct>=66?"Très bien ! ✅":pct>=40?"En progrès 📚":"À revoir 🔄"}</div>
+            <p className="score-comment">{score===questions.length?"Maîtrise totale. Tu peux aller plus loin.":pct>=66?"Bonne compréhension. Relis les points ratés.":pct>=40?"Quelques lacunes. Relis le cours et retente.":"Ce thème mérite une lecture attentive."}</p>
+            <div className="results-actions">
+              <button className="primary-btn" style={{background:accentColor}} onClick={generateQCM}>🔄 Nouveau QCM</button>
+              <button className="ghost-btn" onClick={() => setPhase("course")}>📖 Relire</button>
+              <button className="ghost-btn" onClick={reset}>🏠 Accueil</button>
+            </div>
+          </div>
+        )}
+      </div>
+    )}
+
+  </div>
+</div>
+</>
+```
+
+);
+}
+
+ReactDOM.render(<App/>, document.getElementById(“root”));
+</script>
+
+</body>
+</html>
