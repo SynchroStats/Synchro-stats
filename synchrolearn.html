@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -26,33 +25,33 @@ html,body{min-height:100vh;background:#080c14;color:#e2eaf5;font-family:'DM Sans
 
 /* HOME */
 .home-hero{text-align:center;padding:48px 20px 32px}
-.home-title{font-family:‘DM Serif Display’,serif;font-size:clamp(1.8rem,5vw,2.8rem);color:#fff;margin-bottom:12px;line-height:1.15}
+.home-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,5vw,2.8rem);color:#fff;margin-bottom:12px;line-height:1.15}
 .home-title em{color:#38bdf8;font-style:italic}
 .home-sub{color:#64748b;max-width:420px;margin:0 auto;line-height:1.6;font-size:0.95rem}
 .topics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;padding:8px 16px 48px;max-width:1060px;margin:0 auto}
 .topic-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px;cursor:pointer;transition:all 0.2s;position:relative}
-.topic-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px -8px var(–c);border-color:var(–c)}
+.topic-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px -8px var(--c);border-color:var(--c)}
 .topic-icon{font-size:1.7rem;display:block;margin-bottom:8px}
 .topic-label{font-size:0.88rem;font-weight:500;color:#e2eaf5;line-height:1.4}
 .topic-count{font-size:0.74rem;color:#475569;margin-top:5px}
 .topic-arrow{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:#334155;transition:all 0.2s;font-size:1rem}
-.topic-card:hover .topic-arrow{color:var(–c);transform:translateY(-50%) translateX(4px)}
+.topic-card:hover .topic-arrow{color:var(--c);transform:translateY(-50%) translateX(4px)}
 
 /* PANEL */
 .panel{max-width:640px;margin:0 auto;padding:32px 20px}
-.panel-title{font-family:‘DM Serif Display’,serif;font-size:1.6rem;color:#fff;margin-bottom:6px}
+.panel-title{font-family:'DM Serif Display',serif;font-size:1.6rem;color:#fff;margin-bottom:6px}
 .panel-sub{color:#64748b;font-size:0.87rem;margin-bottom:24px}
 .subtopic-list{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
-.subtopic-btn{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:3px solid var(–c);border-radius:10px;padding:13px 16px;color:#cbd5e1;font-size:0.87rem;font-family:‘DM Sans’,sans-serif;cursor:pointer;text-align:left;transition:all 0.2s;line-height:1.4}
+.subtopic-btn{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-left:3px solid var(--c);border-radius:10px;padding:13px 16px;color:#cbd5e1;font-size:0.87rem;font-family:'DM Sans',sans-serif;cursor:pointer;text-align:left;transition:all 0.2s;line-height:1.4}
 .subtopic-btn:hover{background:rgba(255,255,255,0.06);color:#fff;transform:translateX(3px)}
 .divider{display:flex;align-items:center;gap:10px;margin:18px 0}
 .divider-line{flex:1;height:1px;background:rgba(255,255,255,0.08)}
 .divider-text{color:#475569;font-size:0.77rem}
-textarea.custom-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 15px;color:#e2eaf5;font-family:‘DM Sans’,sans-serif;font-size:0.87rem;outline:none;resize:vertical;min-height:70px;margin-bottom:10px}
-textarea.custom-input:focus{border-color:var(–c)}
-.primary-btn{background:var(–c);border:none;border-radius:10px;padding:12px 22px;color:#000;font-family:‘DM Sans’,sans-serif;font-weight:600;font-size:0.88rem;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:7px}
+textarea.custom-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 15px;color:#e2eaf5;font-family:'DM Sans',sans-serif;font-size:0.87rem;outline:none;resize:vertical;min-height:70px;margin-bottom:10px}
+textarea.custom-input:focus{border-color:var(--c)}
+.primary-btn{background:var(--c);border:none;border-radius:10px;padding:12px 22px;color:#000;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.88rem;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:7px}
 .primary-btn:disabled{opacity:0.35;cursor:not-allowed}
-.ghost-btn{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 20px;color:#94a3b8;font-family:‘DM Sans’,sans-serif;font-size:0.88rem;cursor:pointer;transition:all 0.2s}
+.ghost-btn{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 20px;color:#94a3b8;font-family:'DM Sans',sans-serif;font-size:0.88rem;cursor:pointer;transition:all 0.2s}
 .ghost-btn:hover{background:rgba(255,255,255,0.08);color:#e2eaf5}
 .ghost-btn:disabled{opacity:0.4;cursor:not-allowed}
 .btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:4px}
@@ -60,15 +59,15 @@ textarea.custom-input:focus{border-color:var(–c)}
 /* LOADING */
 .loading-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:18px}
 .loading-crystal{animation:spin 8s linear infinite;opacity:0.5}
-.loading-text{font-family:‘DM Serif Display’,serif;font-size:1.4rem;color:#94a3b8}
+.loading-text{font-family:'DM Serif Display',serif;font-size:1.4rem;color:#94a3b8}
 .loading-sub{color:#334155;font-size:0.82rem;text-align:center;max-width:300px}
 
 /* COURSE */
 .course-wrapper{max-width:680px;margin:0 auto;padding:32px 20px}
 .course-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;padding:5px 12px;font-size:0.77rem;color:#94a3b8;margin-bottom:14px}
-.course-title{font-family:‘DM Serif Display’,serif;font-size:1.6rem;color:#fff;margin-bottom:22px;line-height:1.25}
+.course-title{font-family:'DM Serif Display',serif;font-size:1.6rem;color:#fff;margin-bottom:22px;line-height:1.25}
 .course-body{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:26px;margin-bottom:22px}
-.md h2{font-family:‘DM Serif Display’,serif;font-size:1.15rem;color:#fff;margin:22px 0 9px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:5px}
+.md h2{font-family:'DM Serif Display',serif;font-size:1.15rem;color:#fff;margin:22px 0 9px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:5px}
 .md h3{font-size:0.93rem;font-weight:600;color:#e2eaf5;margin:16px 0 5px}
 .md p{margin-bottom:11px;line-height:1.75;color:#cbd5e1;font-size:0.9rem}
 .md strong{color:#e2eaf5;font-weight:600}
@@ -81,14 +80,14 @@ textarea.custom-input:focus{border-color:var(–c)}
 /* QCM */
 .qcm-wrapper{max-width:680px;margin:0 auto;padding:32px 20px}
 .qcm-progress{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;margin-bottom:18px;overflow:hidden}
-.qcm-bar{height:100%;background:var(–c);border-radius:2px;transition:width 0.4s}
+.qcm-bar{height:100%;background:var(--c);border-radius:2px;transition:width 0.4s}
 .question-card{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:22px;margin-bottom:14px}
-.q-num{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(–c);margin-bottom:7px}
+.q-num{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--c);margin-bottom:7px}
 .q-text{font-size:0.93rem;color:#e2eaf5;font-weight:500;margin-bottom:14px;line-height:1.5}
 .options{display:flex;flex-direction:column;gap:7px}
-.opt-btn{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:11px 15px;color:#94a3b8;font-family:‘DM Sans’,sans-serif;font-size:0.85rem;cursor:pointer;text-align:left;transition:all 0.2s;line-height:1.4;width:100%}
-.opt-btn:hover{border-color:var(–c);color:#e2eaf5}
-.opt-btn.selected{border-color:var(–c);color:#fff;background:rgba(56,189,248,0.08)}
+.opt-btn{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:11px 15px;color:#94a3b8;font-family:'DM Sans',sans-serif;font-size:0.85rem;cursor:pointer;text-align:left;transition:all 0.2s;line-height:1.4;width:100%}
+.opt-btn:hover{border-color:var(--c);color:#e2eaf5}
+.opt-btn.selected{border-color:var(--c);color:#fff;background:rgba(56,189,248,0.08)}
 .opt-btn.correct{border-color:#34d399;color:#34d399;background:rgba(52,211,153,0.08)}
 .opt-btn.wrong{border-color:#f87171;color:#f87171;background:rgba(248,113,113,0.08)}
 .opt-btn.disabled{cursor:default}
@@ -103,26 +102,25 @@ textarea.custom-input:focus{border-color:var(–c)}
 .score-ring{width:140px;height:140px;margin:0 auto 20px;position:relative}
 .score-ring svg{transform:rotate(-90deg)}
 .score-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.score-num{font-family:‘DM Serif Display’,serif;font-size:2.4rem;color:#fff;line-height:1}
+.score-num{font-family:'DM Serif Display',serif;font-size:2.4rem;color:#fff;line-height:1}
 .score-denom{font-size:0.8rem;color:#64748b}
-.score-label{font-family:‘DM Serif Display’,serif;font-size:1.4rem;color:#fff;margin-bottom:9px}
+.score-label{font-family:'DM Serif Display',serif;font-size:1.4rem;color:#fff;margin-bottom:9px}
 .score-comment{color:#64748b;font-size:0.88rem;margin-bottom:24px;line-height:1.6}
 .results-actions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
 
 /* API KEY SCREEN */
 .apikey-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .apikey-box{max-width:460px;width:100%;text-align:center}
-.apikey-title{font-family:‘DM Serif Display’,serif;font-size:1.9rem;color:#fff;margin:18px 0 8px}
+.apikey-title{font-family:'DM Serif Display',serif;font-size:1.9rem;color:#fff;margin:18px 0 8px}
 .apikey-sub{color:#64748b;margin-bottom:28px;line-height:1.6;font-size:0.93rem}
 .apikey-info{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px 22px;text-align:left;margin-bottom:18px}
 .apikey-info p{color:#94a3b8;font-size:0.83rem;line-height:1.7}
 .apikey-info strong{color:#e2eaf5}
 .apikey-info .hint{color:#64748b;font-size:0.76rem;margin-top:8px}
-.apikey-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:13px 16px;color:#e2eaf5;font-family:‘DM Sans’,sans-serif;font-size:0.88rem;outline:none;margin-bottom:10px}
+.apikey-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:13px 16px;color:#e2eaf5;font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;margin-bottom:10px}
 .apikey-input:focus{border-color:#38bdf8}
-.apikey-btn{width:100%;border:none;border-radius:10px;padding:13px;font-family:‘DM Sans’,sans-serif;font-weight:600;font-size:0.93rem;cursor:pointer;transition:all 0.2s}
+.apikey-btn{width:100%;border:none;border-radius:10px;padding:13px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.93rem;cursor:pointer;transition:all 0.2s}
 </style>
-
 </head>
 <body>
 <div id="app"></div>
@@ -337,15 +335,10 @@ function renderSubtopic(topic,c){return`
     ${state.error?`<div class="error-msg">${state.error}</div>`:''}
     <div class="divider"><div class="divider-line"></div><span class="divider-text">ou ton propre sujet</span><div class="divider-line"></div></div>
     <textarea class="custom-input" style="--c:${c}" id="custom-input" placeholder="Ex : Comment gérer la fatigue en fin de saison ?" oninput="state.customText=this.value">${state.customText}</textarea>
-
-```
-<button class="primary-btn" style="background:${c}" id="custom-btn" onclick="if(state.customText.trim()){generateCourse(state.customText.trim())}" ${!state.customText.trim()?'disabled':''}>Générer le cours →</button>
-```
-
+    <button class="primary-btn" style="background:${c}" id="custom-btn" onclick="if(state.customText.trim()){generateCourse(state.customText.trim())}" ${!state.customText.trim()?'disabled':''}>Générer le cours →</button>
   </div>`;}
 
 function renderLoadingCourse(){return`
-
   <div class="loading-screen">
     ${crystalSVG(64,true,0.5)}
     <div class="loading-text">Génération du cours…</div>
@@ -353,63 +346,94 @@ function renderLoadingCourse(){return`
   </div>`;}
 
 function renderLoadingQCM(){return`
-
   <div class="loading-screen">
     ${crystalSVG(64,true,0.5)}
     <div class="loading-text">Préparation du QCM…</div>
   </div>`;}
 
 function renderCourse(topic,c){
-return`<div class="course-wrapper fade"> <div class="course-tag">${topic?.icon||''} ${topic?.label||''}</div> <h2 class="course-title">${state.subtopic}</h2> <div class="course-body"> <div class="md"><p>${md2html(state.course)}</p></div> ${state.extending?`<div class="extending-msg">${crystalSVG(24,true,0.4)} Approfondissement…</div>`:''} </div> ${state.error?`<div class="error-msg">${state.error}</div>`:’’}
-<div class="btn-row">
-<button class=“primary-btn” style=“background:${c}” onclick=“generateQCM()” ${state.extending?‘disabled’:’’}>🎯 Tester mes connaissances</button>
-<button class=“ghost-btn” onclick=“extendCourse()” ${state.extending?‘disabled’:’’}>${state.extending?‘⏳ En cours…’:‘📖 Approfondir’}</button>
-<button class="ghost-btn" onclick="setState({phase:'subtopic',error:null})">← Changer</button>
-</div>
-
+  return`<div class="course-wrapper fade">
+    <div class="course-tag">${topic?.icon||''} ${topic?.label||''}</div>
+    <h2 class="course-title">${state.subtopic}</h2>
+    <div class="course-body">
+      <div class="md"><p>${md2html(state.course)}</p></div>
+      ${state.extending?`<div class="extending-msg">${crystalSVG(24,true,0.4)} Approfondissement…</div>`:''}
+    </div>
+    ${state.error?`<div class="error-msg">${state.error}</div>`:''}
+    <div class="btn-row">
+      <button class="primary-btn" style="background:${c}" onclick="generateQCM()" ${state.extending?'disabled':''}>🎯 Tester mes connaissances</button>
+      <button class="ghost-btn" onclick="extendCourse()" ${state.extending?'disabled':''}>${state.extending?'⏳ En cours…':'📖 Approfondir'}</button>
+      <button class="ghost-btn" onclick="setState({phase:'subtopic',error:null})">← Changer</button>
+    </div>
   </div>`;}
 
 function renderQCM(c){
-const answered=Object.keys(state.answers).length;
-const total=state.questions.length;
-const score=state.questions.filter((q,i)=>state.answers[i]===q.correct).length;
-const pct=total?Math.round(score/total*100):0;
-const circ=2*Math.PI*64;
+  const answered=Object.keys(state.answers).length;
+  const total=state.questions.length;
+  const score=state.questions.filter((q,i)=>state.answers[i]===q.correct).length;
+  const pct=total?Math.round(score/total*100):0;
+  const circ=2*Math.PI*64;
 
-const qs=state.questions.map((q,qi)=>{
-const ua=state.answers[qi];
-const opts=q.options.map((opt,ai)=>{
-let cls=‘opt-btn’;
-if(state.submitted){cls+=’ disabled’;if(ai===q.correct)cls+=’ correct’;else if(ai===ua&&ua!==q.correct)cls+=’ wrong’;}
-else if(ai===ua)cls+=’ selected’;
-return`<button class="${cls}" onclick="if(!state.submitted){state.answers[${qi}]=${ai};render()}">${opt}</button>`;
-}).join(’’);
-const expl=state.submitted?`<div class="explanation"><strong>Explication :</strong> ${q.explanation}</div>`:’’;
-return`<div class="question-card"><div class="q-num">Question ${qi+1}</div><div class="q-text">${q.question}</div><div class="options">${opts}</div>${expl}</div>`;
-}).join(’’);
+  const qs=state.questions.map((q,qi)=>{
+    const ua=state.answers[qi];
+    const opts=q.options.map((opt,ai)=>{
+      let cls='opt-btn';
+      if(state.submitted){cls+=' disabled';if(ai===q.correct)cls+=' correct';else if(ai===ua&&ua!==q.correct)cls+=' wrong';}
+      else if(ai===ua)cls+=' selected';
+      return`<button class="${cls}" onclick="if(!state.submitted){state.answers[${qi}]=${ai};render()}">${opt}</button>`;
+    }).join('');
+    const expl=state.submitted?`<div class="explanation"><strong>Explication :</strong> ${q.explanation}</div>`:'';
+    return`<div class="question-card"><div class="q-num">Question ${qi+1}</div><div class="q-text">${q.question}</div><div class="options">${opts}</div>${expl}</div>`;
+  }).join('');
 
-const scoreSection=state.submitted?` <hr class="sep"> <div class="score-section"> <div class="score-ring"> <svg width="140" height="140" viewBox="0 0 140 140"> <circle cx="70" cy="70" r="64" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="9"/> <circle cx="70" cy="70" r="64" fill="none" stroke="${c}" stroke-width="9" stroke-dasharray="${circ}" stroke-dashoffset="${circ*(1-pct/100)}" stroke-linecap="round" style="transition:stroke-dashoffset 1s ease"/> </svg> <div class="score-inner"><span class="score-num">${score}</span><span class="score-denom">/${total}</span></div> </div> <div class="score-label">${score===total?'Parfait ! 🏆':pct>=66?'Très bien ! ✅':pct>=40?'En progrès 📚':'À revoir 🔄'}</div> <p class="score-comment">${score===total?'Maîtrise totale. Tu peux aller plus loin.':pct>=66?'Bonne compréhension. Relis les points ratés.':pct>=40?'Quelques lacunes. Relis et retente.':'Ce thème mérite une lecture attentive.'}</p> <div class="results-actions"> <button class="primary-btn" style="background:${c}" onclick="generateQCM()">🔄 Nouveau QCM</button> <button class="ghost-btn" onclick="setState({phase:'course'})">📖 Relire</button> <button class="ghost-btn" onclick="setState({phase:'home',topicId:null,subtopic:null,error:null})">🏠 Accueil</button> </div> </div>`:’’;
+  const scoreSection=state.submitted?`
+    <hr class="sep">
+    <div class="score-section">
+      <div class="score-ring">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="64" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="9"/>
+          <circle cx="70" cy="70" r="64" fill="none" stroke="${c}" stroke-width="9" stroke-dasharray="${circ}" stroke-dashoffset="${circ*(1-pct/100)}" stroke-linecap="round" style="transition:stroke-dashoffset 1s ease"/>
+        </svg>
+        <div class="score-inner"><span class="score-num">${score}</span><span class="score-denom">/${total}</span></div>
+      </div>
+      <div class="score-label">${score===total?'Parfait ! 🏆':pct>=66?'Très bien ! ✅':pct>=40?'En progrès 📚':'À revoir 🔄'}</div>
+      <p class="score-comment">${score===total?'Maîtrise totale. Tu peux aller plus loin.':pct>=66?'Bonne compréhension. Relis les points ratés.':pct>=40?'Quelques lacunes. Relis et retente.':'Ce thème mérite une lecture attentive.'}</p>
+      <div class="results-actions">
+        <button class="primary-btn" style="background:${c}" onclick="generateQCM()">🔄 Nouveau QCM</button>
+        <button class="ghost-btn" onclick="setState({phase:'course'})">📖 Relire</button>
+        <button class="ghost-btn" onclick="setState({phase:'home',topicId:null,subtopic:null,error:null})">🏠 Accueil</button>
+      </div>
+    </div>`:'';
 
-const submitRow=!state.submitted?` <div class="submit-row"> <button class="primary-btn" style="background:${c}" onclick=" if(Object.keys(state.answers).length<${total}){state.error='Réponds à toutes les questions !';render();return;} state.submitted=true;state.error=null;render();">Valider</button> <span class="count-label">${answered}/${total} répondues</span> </div>`:’’;
+  const submitRow=!state.submitted?`
+    <div class="submit-row">
+      <button class="primary-btn" style="background:${c}" onclick="
+        if(Object.keys(state.answers).length<${total}){state.error='Réponds à toutes les questions !';render();return;}
+        state.submitted=true;state.error=null;render();">Valider</button>
+      <span class="count-label">${answered}/${total} répondues</span>
+    </div>`:'';
 
-return`<div class="qcm-wrapper fade"> <div class="qcm-progress"><div class="qcm-bar" style="width:${answered/total*100}%"></div></div> <div class="panel-title" style="margin-bottom:4px">QCM</div> <p class="panel-sub" style="margin-bottom:22px">${state.subtopic}</p> ${qs} ${state.error?`<div class="error-msg">${state.error}</div>`:’’}
-${submitRow}
-${scoreSection}
-
+  return`<div class="qcm-wrapper fade">
+    <div class="qcm-progress"><div class="qcm-bar" style="width:${answered/total*100}%"></div></div>
+    <div class="panel-title" style="margin-bottom:4px">QCM</div>
+    <p class="panel-sub" style="margin-bottom:22px">${state.subtopic}</p>
+    ${qs}
+    ${state.error?`<div class="error-msg">${state.error}</div>`:''}
+    ${submitRow}
+    ${scoreSection}
   </div>`;}
 
 function bindEvents(){
-const ci=document.getElementById(‘custom-input’);
-if(ci){ci.addEventListener(‘input’,function(){
-state.customText=this.value;
-const btn=document.getElementById(‘custom-btn’);
-if(btn)btn.disabled=!this.value.trim();
-});}
+  const ci=document.getElementById('custom-input');
+  if(ci){ci.addEventListener('input',function(){
+    state.customText=this.value;
+    const btn=document.getElementById('custom-btn');
+    if(btn)btn.disabled=!this.value.trim();
+  });}
 }
 
 // INIT
 render();
 </script>
-
 </body>
 </html>
