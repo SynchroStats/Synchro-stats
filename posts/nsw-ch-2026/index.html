@@ -1,0 +1,46 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Posts – NSW Ch.</title>
+<style>
+:root{color-scheme:dark}body{margin:0;background:#0c0722;color:#eee;font:16px/1.4 -apple-system,system-ui,sans-serif;padding:16px}
+h1{font-size:22px;margin:4px 0 16px}h2{font-size:18px;color:#ff5abe;margin:24px 0 8px}
+.imgs{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory}.imgs img{width:80%;max-width:360px;border-radius:8px;scroll-snap-align:start}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}button{flex:1;min-width:150px;padding:14px;border:0;border-radius:12px;background:#06b6d4;color:#0c0722;font-weight:700;font-size:16px}
+button+button{background:#ff5abe}pre{white-space:pre-wrap;background:#161036;padding:12px;border-radius:10px;font:14px/1.45 -apple-system,system-ui,sans-serif}
+.note{background:#3a2a00;padding:10px;border-radius:8px}.verif{background:#161036;padding:10px;border-radius:8px;line-height:2}.verif a{color:#06b6d4;margin-right:12px;font-weight:600}</style></head><body>
+<h1>📸 NSW Ch.</h1><p class="verif">🔎 Vérifier les comptes (un appui ouvre Instagram) :<br><a href="https://www.instagram.com/majesticicejunior/" target="_blank">@majesticicejunior</a> <a href="https://www.instagram.com/southernskysynchro/" target="_blank">@southernskysynchro</a> <a href="https://www.instagram.com/teamunitysenior/" target="_blank">@teamunitysenior</a></p><section>
+<h2>NSW Ch.</h2>
+<div class="imgs"><img src="nsw-ch_1.png" alt="slide 1" loading="lazy"><img src="nsw-ch_2.png" alt="slide 2" loading="lazy"><img src="nsw-ch_3.png" alt="slide 3" loading="lazy"></div>
+<div class="btns"><button onclick='partager(["nsw-ch_1.png", "nsw-ch_2.png", "nsw-ch_3.png"], this)'>📥 Enregistrer les 3 images</button>
+<button onclick="copier('cap0', this)">📋 Copier la légende</button></div>
+<pre id="cap0">📍 NSW Ch. (17-18 Oct) 🇦🇺
+
+🔹 Senior
+🥇 Team Unity (@teamunitysenior) — 102.68 (SP 42.77 | FS 59.91)
+🥈 Team Southern Sky (@southernskysynchro) — 91.12 (SP 39.14 | FS 51.98)
+
+🔹 Junior
+🥇 Team Southern Sky (@southernskysynchro) — 78.25 (SP 31.38 | FS 46.87)
+🥈 Team Majestic Ice (@majesticicejunior) — 66.15 (SP 27.20 | FS 38.95)
+
+📈 Follow every team&#x27;s progression throughout the season on our website.
+
+👉 Swipe for the full breakdown — judges &amp; elements for both programs.
+
+🔗 Full results &amp; stats: synchrostats.github.io
+
+⚠️ Scores compiled from official results — let us know if you spot any discrepancy!
+
+#SynchroSkating #SynchronizedSkating #NswChampionships #AusSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamUnity #TeamSouthernSky #TeamMajesticIce</pre>
+</section>
+<script>
+async function partager(fichiers, b){
+  try {
+    const files = await Promise.all(fichiers.map(async f => new File([await (await fetch(f)).blob()], f, {type:'image/png'})));
+    if (navigator.canShare && navigator.canShare({files})) { await navigator.share({files}); return; }
+  } catch(e) { if (e.name === 'AbortError') return; }
+  fichiers.forEach(f => { const a = document.createElement('a'); a.href = f; a.download = f; document.body.appendChild(a); a.click(); a.remove(); });
+  b.textContent = '✅ Téléchargées';
+}
+function copier(id, b){ navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => { b.textContent = '✅ Légende copiée'; }); }
+</script></body></html>
