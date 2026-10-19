@@ -10,8 +10,8 @@ button+button{background:#ff5abe}pre{white-space:pre-wrap;background:#161036;pad
 .note{background:#3a2a00;padding:10px;border-radius:8px}.verif{background:#161036;padding:10px;border-radius:8px;line-height:2}.verif a{color:#06b6d4;margin-right:12px;font-weight:600}</style></head><body>
 <h1>📸 NSW Ch.</h1><p class="verif">🔎 Vérifier les comptes (un appui ouvre Instagram) :<br><a href="https://www.instagram.com/majesticicejunior/" target="_blank">@majesticicejunior</a> <a href="https://www.instagram.com/southernskysynchro/" target="_blank">@southernskysynchro</a> <a href="https://www.instagram.com/teamunitysenior/" target="_blank">@teamunitysenior</a></p><section>
 <h2>NSW Ch.</h2>
-<div class="imgs"><img src="nsw-ch_1.png" alt="slide 1" loading="lazy"><img src="nsw-ch_2.png" alt="slide 2" loading="lazy"><img src="nsw-ch_3.png" alt="slide 3" loading="lazy"></div>
-<div class="btns"><button onclick='partager(["nsw-ch_1.png", "nsw-ch_2.png", "nsw-ch_3.png"], this)'>📥 Enregistrer les 3 images</button>
+<div class="imgs"><img src="nsw-ch_1.png?v=79edbaa161" alt="slide 1" loading="lazy"><img src="nsw-ch_2.png?v=578144fef6" alt="slide 2" loading="lazy"><img src="nsw-ch_3.png?v=d5d5460aad" alt="slide 3" loading="lazy"></div>
+<div class="btns"><button onclick='partager([["nsw-ch_1.png?v=79edbaa161", "nsw-ch_1.png"], ["nsw-ch_2.png?v=578144fef6", "nsw-ch_2.png"], ["nsw-ch_3.png?v=d5d5460aad", "nsw-ch_3.png"]], this)'>📥 Enregistrer les 3 images</button>
 <button onclick="copier('cap0', this)">📋 Copier la légende</button></div>
 <pre id="cap0">📍 NSW Ch. (17-18 Oct) 🇦🇺
 
@@ -36,10 +36,10 @@ button+button{background:#ff5abe}pre{white-space:pre-wrap;background:#161036;pad
 <script>
 async function partager(fichiers, b){
   try {
-    const files = await Promise.all(fichiers.map(async f => new File([await (await fetch(f)).blob()], f, {type:'image/png'})));
+    const files = await Promise.all(fichiers.map(async ([u, f]) => new File([await (await fetch(u, {cache:'reload'})).blob()], f, {type:'image/png'})));
     if (navigator.canShare && navigator.canShare({files})) { await navigator.share({files}); return; }
   } catch(e) { if (e.name === 'AbortError') return; }
-  fichiers.forEach(f => { const a = document.createElement('a'); a.href = f; a.download = f; document.body.appendChild(a); a.click(); a.remove(); });
+  fichiers.forEach(([u, f]) => { const a = document.createElement('a'); a.href = u; a.download = f; document.body.appendChild(a); a.click(); a.remove(); });
   b.textContent = '✅ Téléchargées';
 }
 function copier(id, b){ navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => { b.textContent = '✅ Légende copiée'; }); }
