@@ -13811,8 +13811,8 @@ function ajouterEquipeManuelle() {
                 const saisonTout = meilleurTotal(nom, c => getSaisonComp(c) === saisonRef);
                 const saisonIntl = meilleurTotal(nom, c => getSaisonComp(c) === saisonRef && estIntl(c));
 
-                // Optimal (Int/CS only)
-                const isIntlCS = x => ['International', 'Challenger Series'].includes(x.comp.t);
+                // Optimal (Int/CS only, saison de la compétition seulement : les règles et éléments changent d'une saison à l'autre)
+                const isIntlCS = x => ['International', 'Challenger Series'].includes(x.comp.t) && getSaisonComp(x.comp) === saisonRef;
                 const spAll = teamResults.filter(x => isIntlCS(x) && (x.res.prog === 'SP' || x.res.prog === 'PC'));
                 const fsAll = teamResults.filter(x => isIntlCS(x) && (x.res.prog === 'FS' || x.res.prog === 'PL'));
                 const spOpt = spAll.filter(x => isIntlOrCS(x.res));
@@ -13879,11 +13879,12 @@ function ajouterEquipeManuelle() {
 
             html += `</tbody></table></div></div>`;
 
-            // ── TABLE 2 : Theoretical Optimal ──────────────────────────
+            // ── TABLE 2 : Theoretical Optimal (seulement s'il existe des scores de la saison) ──
+            if (!data.some(d => d.optSP !== null || d.optFS !== null)) return html;
             const sortedOpt = [...data].sort((a, b) => (b.optTotal || 0) - (a.optTotal || 0));
 
             html += `<div style="margin-bottom:24px;">
-                <div style="font-weight:700;font-size:1em;color:#1e3c72;margin-bottom:8px;">⚡ Theoretical Optimal <span style="font-weight:400;color:#888;font-size:0.85em;">(International & Challenger Series)</span></div>
+                <div style="font-weight:700;font-size:1em;color:#1e3c72;margin-bottom:8px;">⚡ Theoretical Optimal <span style="font-weight:400;color:#888;font-size:0.85em;">(${lib(saisonRef)} International & Challenger Series)</span></div>
                 <div style="overflow-x:auto;">
                 <table style="width:100%;border-collapse:collapse;font-size:0.88em;">
                     <thead><tr style="background:#f0f4ff;">
