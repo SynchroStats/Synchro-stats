@@ -13731,7 +13731,7 @@ function ajouterEquipeManuelle() {
             </div>
             <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
                 
-                <button class="btn btn-small" onclick="ouvrirCompUpload('${compId}')">← Upload résultats</button>
+                
             </div>`;
 
             ['Senior','Junior'].forEach(cat => {
@@ -13739,14 +13739,59 @@ function ajouterEquipeManuelle() {
                 if (teams.length === 0) return;
 
                 html += `<h3 style="color:#1e3c72;margin:20px 0 12px;border-bottom:2px solid #1e3c72;padding-bottom:6px;">${cat}</h3>`;
-                html += genererTableauxPreview(teams, cat, isIntlOrCS, comp.preview.nations || {});
+                html += genererTableauxPreview(teams, cat, isIntlOrCS, comp.preview.nations || {}, getSaisonComp(comp));
             });
 
             document.getElementById('modalBody').innerHTML = html;
             document.getElementById('modal').classList.add('active');
         }
 
-        function genererTableauxPreview(teams, cat, isIntlOrCS, nations) {
+        // Tri d'un tableau de preview au clic sur l'en-tête (colonne k, valeurs dans data-v ; vides en dernier)
+        function previewTrier(th, k) {
+            const table = th.closest('table'), tbody = table.querySelector('tbody');
+            const rows = [...tbody.querySelectorAll('tr')];
+            const v = tr => { const x = tr.children[k].dataset.v; return x === '' || x === undefined ? null : parseFloat(x); };
+            rows.sort((a, b) => { const va = v(a), vb = v(b); if (va === null && vb === null) return 0; if (va === null) return 1; if (vb === null) return -1; return vb - va; });
+            rows.forEach((tr, i) => {
+                tbody.appendChild(tr);
+                const c = tr.children[0], ok = v(tr) !== null;
+                c.textContent = ok ? i + 1 : '–';
+                c.className = ok ? getRankCellClass(i + 1) : '';
+            });
+            table.querySelectorAll('th[data-col]').forEach(h => { h.style.background = h === th ? '#dfe6ff' : ''; h.querySelector('.tri').textContent = h === th ? ' ▼' : ''; });
+        }
+
+        function genererTableauxPreview(teams, cat, isIntlOrCS, nations, saisonRef) {
+            // Saison de la compétition prévisualisée et saison précédente (ex. '2627' → '2526')
+            saisonRef = saisonRef || (typeof _calCurrentSaison !== 'undefined' ? _calCurrentSaison : '2627');
+            const a1 = parseInt(saisonRef.slice(0, 2), 10);
+            const saisonPrec = String(a1 - 1).padStart(2, '0') + String(a1).padStart(2, '0');
+            const lib = sa => sa.slice(0, 2) + '-' + sa.slice(2);
+            const TYPES_INTL = ['International', 'Challenger Series', 'World Championships', 'Junior World Championships'];
+            const estIntl = c => TYPES_INTL.includes(c.t) || /^ISU\b/i.test(c.n || '');
+            // Meilleur total d'une même compétition (SP + FS du même événement) parmi les compétitions retenues
+            const meilleurTotal = (nom, filtreComp) => {
+                const parComp = {};
+                resultats.forEach(r => {
+                    if (r.cat !== cat) return;
+                    const comp = liste.find(c => String(c.id) === String(r.compId));
+                    if (!comp || !filtreComp(comp)) return;
+                    const eq = (r.data && r.data.equipes || []).find(e => e.nom === nom);
+                    if (!eq || typeof eq.total !== 'number') return;
+                    const k = String(comp.id);
+                    parComp[k] = parComp[k] || { comp };
+                    if (r.prog === 'SP' || r.prog === 'PC') parComp[k].sp = eq.total;
+                    else if (r.prog === 'FS' || r.prog === 'PL') parComp[k].fs = eq.total;
+                });
+                let best = null;
+                Object.values(parComp).forEach(x => {
+                    if (x.sp === undefined || x.fs === undefined) return;
+                    const t = x.sp + x.fs;
+                    if (!best || t > best.total) best = { total: t, sp: x.sp, fs: x.fs, comp: x.comp };
+                });
+                return best;
+            };
+
             // Construire les données pour chaque équipe
             const data = teams.map(nom => {
                 const teamResults = [];
@@ -13761,57 +13806,74 @@ function ajouterEquipeManuelle() {
 
                 const nation = teamResults.length > 0 ? teamResults[0].eq.nation : (nations && nations[nom]) || '—';
 
-                // Season best (International + Challenger Series uniquement)
+                // Les 3 colonnes de référence
+                const precIntl = meilleurTotal(nom, c => getSaisonComp(c) === saisonPrec && estIntl(c));
+                const saisonTout = meilleurTotal(nom, c => getSaisonComp(c) === saisonRef);
+                const saisonIntl = meilleurTotal(nom, c => getSaisonComp(c) === saisonRef && estIntl(c));
+
+                // Optimal (Int/CS only)
                 const isIntlCS = x => ['International', 'Challenger Series'].includes(x.comp.t);
                 const spAll = teamResults.filter(x => isIntlCS(x) && (x.res.prog === 'SP' || x.res.prog === 'PC'));
                 const fsAll = teamResults.filter(x => isIntlCS(x) && (x.res.prog === 'FS' || x.res.prog === 'PL'));
-                const bestSP = spAll.reduce((b, x) => (!b || x.eq.total > b.eq.total) ? x : b, null);
-                const bestFS = fsAll.reduce((b, x) => (!b || x.eq.total > b.eq.total) ? x : b, null);
-                const bestTotal = (bestSP && bestFS) ? bestSP.eq.total + bestFS.eq.total : null;
-
-                // Optimal (Int/CS only)
                 const spOpt = spAll.filter(x => isIntlOrCS(x.res));
                 const fsOpt = fsAll.filter(x => isIntlOrCS(x.res));
                 const optimal = calcOptimal(nom, spOpt, fsOpt);
 
                 return {
-                    nom, nation,
-                    bestSP: bestSP ? bestSP.eq.total : null,
-                    bestFS: bestFS ? bestFS.eq.total : null,
-                    bestTotal,
+                    nom, nation, cols: [precIntl, saisonTout, saisonIntl],
                     optSP: optimal && optimal.sp ? optimal.sp.totalOptimal : null,
                     optFS: optimal && optimal.fs ? optimal.fs.totalOptimal : null,
                     optTotal: (optimal && optimal.sp && optimal.fs) ? optimal.sp.totalOptimal + optimal.fs.totalOptimal : null
                 };
             });
 
-            // ── TABLE 1 : Season Best ──────────────────────────────────
-            const sortedBest = [...data].sort((a, b) => (b.bestTotal || 0) - (a.bestTotal || 0));
+            // ── TABLE 1 : meilleurs scores de référence (3 colonnes) ──────
+            const COLS = [
+                { titre: `Best ${lib(saisonPrec)}`, sous: 'International', coul: '#5e35b1' },
+                { titre: `Best ${lib(saisonRef)}`, sous: 'All competitions', coul: '#00897b' },
+                { titre: `Best ${lib(saisonRef)}`, sous: 'International', coul: '#1e3c72' }
+            ];
+            // Tri par défaut : la colonne internationale la plus remplie (cette saison d'abord), sinon « toutes compétitions »
+            const remplis = k => data.filter(d => d.cols[k]).length;
+            let colTri = [2, 0, 1].reduce((b, k) => remplis(k) > remplis(b) ? k : b, 2);
+            const sortedBest = [...data].sort((a, b) => {
+                const va = a.cols[colTri] ? a.cols[colTri].total : null, vb = b.cols[colTri] ? b.cols[colTri].total : null;
+                if (va === null && vb === null) { const xa = Math.max(...a.cols.map(c => c ? c.total : -1)), xb = Math.max(...b.cols.map(c => c ? c.total : -1)); return xb - xa; }
+                if (va === null) return 1; if (vb === null) return -1; return vb - va;
+            });
             const rankClassP = r => getRankCellClass(r);
+            const cellule = (x, k) => {
+                if (!x) return `<td data-v="" style="padding:8px;border:1px solid #ddd;text-align:center;color:#bbb;">—</td>`;
+                const nomC = (x.comp.n || '').replace(/"/g, '&quot;');
+                return `<td data-v="${x.total.toFixed(2)}" style="padding:7px 8px;border:1px solid #ddd;text-align:right;${k === colTri ? 'background:#f7f9ff;' : ''}">
+                    <div style="font-weight:800;font-size:1.05em;color:${COLS[k].coul};">${x.total.toFixed(2)}</div>
+                    <div style="font-size:0.74em;color:#777;white-space:nowrap;" title="SP ${x.sp.toFixed(2)} + FS ${x.fs.toFixed(2)}">${nomC} <img src="https://flagcdn.com/16x12/${isoA3toA2(x.comp.p || '')}.png" onerror="this.style.display='none'" style="vertical-align:middle;"></div>
+                </td>`;
+            };
 
             let html = `<div style="margin-bottom:24px;">
-                <div style="font-weight:700;font-size:1em;color:#1e3c72;margin-bottom:8px;">📊 Season Best (all competitions)</div>
+                <div style="font-weight:700;font-size:1em;color:#1e3c72;margin-bottom:4px;">📊 Best scores</div>
+                <div style="font-size:0.8em;color:#888;margin-bottom:8px;">Best total (SP + FS at the same competition). International events are judged more strictly than nationals, so compare like with like. Tap a column title to sort.</div>
                 <div style="overflow-x:auto;">
                 <table style="width:100%;border-collapse:collapse;font-size:0.88em;">
                     <thead><tr style="background:#f0f4ff;">
                         <th style="padding:8px;border:1px solid #ddd;text-align:center;width:36px;">#</th>
                         <th style="padding:8px;border:1px solid #ddd;text-align:left;">Team</th>
                         <th style="padding:8px;border:1px solid #ddd;text-align:center;">Nat</th>
-                        <th style="padding:8px;border:1px solid #ddd;text-align:right;">SP</th>
-                        <th style="padding:8px;border:1px solid #ddd;text-align:right;">FS</th>
-                        <th style="padding:8px;border:1px solid #ddd;text-align:right;font-weight:bold;">Total</th>
+                        ${COLS.map((c, k) => `<th data-col="${k}" onclick="previewTrier(this, ${k + 3})" style="padding:8px;border:1px solid #ddd;text-align:right;cursor:pointer;user-select:none;${k === colTri ? 'background:#dfe6ff;' : ''}">
+                            <div style="color:${c.coul};">${c.titre}<span class="tri">${k === colTri ? ' ▼' : ''}</span></div>
+                            <div style="font-weight:400;font-size:0.8em;color:#666;">${c.sous}</div></th>`).join('')}
                     </tr></thead><tbody>`;
 
             sortedBest.forEach((d, idx) => {
+                const ok = !!d.cols[colTri];
                 const rank = idx + 1;
-                const rc = rankClassP(rank);
+                const rc = ok ? rankClassP(rank) : '';
                 html += `<tr>
-                    <td class="${rc}" style="padding:8px;border:1px solid #ddd;text-align:center;font-weight:bold;">${rank}</td>
+                    <td class="${rc}" style="padding:8px;border:1px solid #ddd;text-align:center;font-weight:bold;">${ok ? rank : '–'}</td>
                     <td style="padding:8px;border:1px solid #ddd;font-weight:600;"><span onclick="afficherPageEquipe(this.dataset.nom)" data-nom="${d.nom}" style="cursor:pointer;color:#1e3c72;text-decoration:none;">${d.nom}</span></td>
                     <td style="padding:8px;border:1px solid #ddd;text-align:center;font-size:0.85em;">${d.nation}</td>
-                    <td style="padding:8px;border:1px solid #ddd;text-align:right;">${d.bestSP !== null ? d.bestSP.toFixed(2) : '<span style="color:#aaa;">—</span>'}</td>
-                    <td style="padding:8px;border:1px solid #ddd;text-align:right;">${d.bestFS !== null ? d.bestFS.toFixed(2) : '<span style="color:#aaa;">—</span>'}</td>
-                    <td style="padding:8px;border:1px solid #ddd;text-align:right;font-weight:bold;">${d.bestTotal !== null ? d.bestTotal.toFixed(2) : '<span style="color:#aaa;">—</span>'}</td>
+                    ${d.cols.map(cellule).join('')}
                 </tr>`;
             });
 
@@ -14218,7 +14280,32 @@ function ajouterEquipeManuelle() {
             return combine;
         }
 
-        function _calRenderCards(list) {
+        // Compétition de la saison affichée qui a une preview (équipes inscrites) mais pas encore de résultats
+        function _calAPreview(c) {
+            const cle = _calCleEntree(c);
+            const match = liste.find(l => _calCleEntree(l) === cle && getSaisonComp(l) === _calCurrentSaison);
+            return !!(match && match.preview && ((match.preview.senior || []).length + (match.preview.junior || []).length));
+        }
+
+        // Dates de début et de fin d'une carte du calendrier (« 14-17 Oct 2026 », « 29-1 Oct 2026 » = 29 oct.-1er nov.,
+        // « 29 Oct-1 Nov 2026 », « 28 Nov 2026 »). Renvoie null si la date est incomplète.
+        function _calPlage(c) {
+            const MOIS = { jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11 };
+            const d = String(c.d || '').toLowerCase();
+            const an = d.match(/(\d{4})/);
+            const mois = [...d.matchAll(/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/g)].map(m => MOIS[m[1]]);
+            const jours = (d.replace(/\d{4}/, '').match(/\d{1,2}/g) || []).map(Number);
+            if (!an || !mois.length || !jours.length) return null;
+            const y = parseInt(an[1], 10);
+            const j1 = jours[0], j2 = jours[jours.length - 1];
+            let m1 = mois[0], m2 = mois[mois.length - 1];
+            if (mois.length === 1 && j2 < j1) m2 = m1 + 1;          // « 29-1 Oct » : fin le mois suivant
+            const debut = new Date(y, m1, j1);
+            const fin = new Date(y + (mois.length > 1 && m2 < m1 ? 1 : 0), m2, j2, 23, 59);
+            return { debut, fin };
+        }
+
+        function _calRenderCards(list, badgeFn) {
             if (!list.length) return '<p style="color:#888;padding:20px;">Aucune comp&eacute;tition.</p>';
             return '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;">'
                 + list.map(function(c, idx) {
@@ -14228,7 +14315,10 @@ function ajouterEquipeManuelle() {
                         return '<span style="background:' + bg + ';color:white;padding:1px 6px;border-radius:8px;font-size:0.72em;font-weight:700;">' + ca + '</span>';
                     }).join(' ');
                     var hasResults = _calAResultats(c);
-                    return '<div data-cal-idx="' + idx + '" data-has-results="' + (hasResults ? '1' : '0') + '" style="background:white;border-radius:12px;padding:18px;border-left:5px solid ' + color + ';box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;flex-direction:column;gap:6px;cursor:pointer;">'
+                    var hasPreview = !hasResults && _calAPreview(c);
+                    var badge = (badgeFn ? badgeFn(c) : '') + (hasPreview ? '<span style="background:#9c27b0;color:white;padding:2px 9px;border-radius:10px;font-size:0.75em;font-weight:700;">&#128302; Preview</span>' : '');
+                    return '<div data-cal-idx="' + idx + '" data-has-results="' + (hasResults || hasPreview ? '1' : '0') + '" style="background:white;border-radius:12px;padding:18px;border-left:5px solid ' + color + ';box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;flex-direction:column;gap:6px;cursor:pointer;">'
+                        + (badge ? '<div style="display:flex;gap:6px;flex-wrap:wrap;">' + badge + '</div>' : '')
                         + '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">'
                         + '<span style="font-weight:700;color:#1e3c72;font-size:1em;flex:1;">' + c.n + '</span>'
                         + '<span style="background:' + color + ';color:white;padding:3px 10px;border-radius:12px;font-size:0.78em;font-weight:700;white-space:nowrap;">' + c.t + '</span>'
@@ -14254,15 +14344,58 @@ function ajouterEquipeManuelle() {
                 return ok1 && ok2 && ok3;
             });
             var grid = document.getElementById('cal-grid');
-            if (grid) {
-                grid.innerHTML = _calRenderCards(filtered);
-                grid.querySelectorAll('[data-cal-idx]').forEach(function(card) {
+            if (!grid) return;
+
+            // Sections : en cours / à venir (14 jours, grosses compétitions d'abord) / résultats récents (du plus
+            // récent au plus ancien) / plus tard. Pour une saison passée : tout en « résultats », le plus récent d'abord.
+            var maintenant = new Date();
+            var dans14 = new Date(maintenant.getTime() + 14 * 864e5);
+            var cle = function(c) { var p = _calPlage(c); return p ? p.debut.getTime() : _calDateKey(c.d); };
+            var finDe = function(c) { var p = _calPlage(c); return p ? p.fin : null; };
+            var debutDe = function(c) { var p = _calPlage(c); return p ? p.debut : null; };
+            var gros = function(c) { return importants.includes(c.t) ? 0 : 1; };
+            var enCours = [], bientot = [], passees = [], plusTard = [], sansDate = [];
+            filtered.forEach(function(c) {
+                var p = _calPlage(c);
+                if (!p) { sansDate.push(c); return; }
+                if (p.debut <= maintenant && p.fin >= maintenant) enCours.push(c);
+                else if (p.fin < maintenant) passees.push(c);
+                else if (p.debut <= dans14) bientot.push(c);
+                else plusTard.push(c);
+            });
+            enCours.sort(function(a, b) { return gros(a) - gros(b) || cle(a) - cle(b); });
+            bientot.sort(function(a, b) { return gros(a) - gros(b) || cle(a) - cle(b); });
+            passees.sort(function(a, b) { return finDe(b) - finDe(a); });
+            plusTard.sort(function(a, b) { return cle(a) - cle(b); });
+
+            var chip = function(txt, bg) { return '<span style="background:' + bg + ';color:white;padding:2px 9px;border-radius:10px;font-size:0.75em;font-weight:700;">' + txt + '</span>'; };
+            var jours = function(c) { var d = debutDe(c); return d ? Math.max(1, Math.ceil((d - maintenant) / 864e5)) : null; };
+            var sections = [
+                { titre: '&#128308; En cours', liste: enCours, couleur: '#e53935', badge: function() { return chip('LIVE', '#e53935'); } },
+                { titre: '&#9203; &Agrave; venir &mdash; 14 prochains jours', liste: bientot, couleur: '#fb8c00',
+                  badge: function(c) { var n = jours(c); return chip(n === 1 ? 'Tomorrow' : 'In ' + n + ' days', '#fb8c00'); } },
+                { titre: '&#9989; R&eacute;sultats r&eacute;cents', liste: passees, couleur: '#2e7d32' },
+                { titre: '&#128197; Plus tard', liste: plusTard, couleur: '#1e3c72' },
+                { titre: 'Date &agrave; confirmer', liste: sansDate, couleur: '#888' }
+            ];
+            var html = '';
+            sections.forEach(function(sec, k) {
+                if (!sec.liste.length) return;
+                html += '<div style="margin:' + (html ? '26px' : '0') + ' 0 12px;display:flex;align-items:center;gap:10px;">'
+                     + '<span style="background:white;color:' + sec.couleur + ';border-radius:20px;padding:5px 14px;font-size:1.05em;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,0.12);">' + sec.titre
+                     + ' <span style="background:' + sec.couleur + ';color:white;border-radius:10px;padding:1px 8px;font-size:0.8em;margin-left:4px;">' + sec.liste.length + '</span></span>'
+                     + '<span style="flex:1;height:2px;background:white;opacity:0.35;"></span></div>'
+                     + '<div data-cal-section="' + k + '">' + _calRenderCards(sec.liste, sec.badge) + '</div>';
+            });
+            grid.innerHTML = html || _calRenderCards([]);
+            grid.querySelectorAll('[data-cal-section]').forEach(function(bloc) {
+                var sec = sections[parseInt(bloc.getAttribute('data-cal-section'), 10)];
+                bloc.querySelectorAll('[data-cal-idx]').forEach(function(card) {
                     card.addEventListener('click', function() {
-                        var idx = parseInt(card.getAttribute('data-cal-idx'), 10);
-                        ouvrirCompCalendrier(filtered[idx]);
+                        ouvrirCompCalendrier(sec.liste[parseInt(card.getAttribute('data-cal-idx'), 10)]);
                     });
                 });
-            }
+            });
         }
 
         /**
@@ -14336,6 +14469,170 @@ function ajouterEquipeManuelle() {
 
 
 </script>
+    <!-- Navigation : historique des vues (bouton « ← Back » + geste retour du téléphone / navigateur) -->
+    <style>
+        .nav-back-btn { background: #eef1ff; color: #1e3c72; border: 2px solid #c5cae9; border-radius: 20px; padding: 6px 14px; font-weight: 700; cursor: pointer; font-size: 0.95em; white-space: nowrap; }
+        .nav-back-btn:hover { background: #dfe4ff; }
+        .modal-header .nav-back-btn { margin-right: 12px; }
+        #nav-back-float { position: fixed; left: 16px; bottom: 18px; z-index: 900; box-shadow: 0 4px 14px rgba(0,0,0,0.18); background: #1e3c72; color: white; border-color: #1e3c72; padding: 10px 18px; }
+        /* Compétitions en cours / à venir : lisibles même sans données (non cliquables sur le site public) */
+        #cal-grid [data-cal-section="0"] [data-cal-idx][data-has-results="0"],
+        #cal-grid [data-cal-section="1"] [data-cal-idx][data-has-results="0"] { opacity: 0.9 !important; filter: none !important; }
+        @media (max-width: 768px) { .modal-header .nav-back-btn { padding: 5px 10px; font-size: 0.85em; margin-right: 6px; } }
+    </style>
+    <script>
+    (function() {
+        var MODALES = ['afficherPageJuge', 'afficherVueSommaire', 'afficherPreview', 'voirRes', 'voirDetailsEquipe', 'ouvrirCompModal'];
+        var PAGES = ['switchTab', 'afficherPageEquipe'];
+        var pile = [];          // [{fn, args, modal, scroll}]
+        var pos = -1;
+        var profondeur = 0;     // seuls les appels « extérieurs » (clic de l'utilisateur) sont enregistrés
+        var rejoue = false;
+
+        function modalOuverte() { var m = document.getElementById('modal'); return !!(m && m.classList.contains('active')); }
+        function boiteModale() { return document.querySelector('#modal .modal-content'); }
+        function ongletVisible() {
+            var t = ['classement', 'comparaisons', 'statistiques', 'judges-public', 'calendrier'];
+            for (var i = 0; i < t.length; i++) { var el = document.getElementById('tab-' + t[i]); if (el && el.style.display === 'block') return t[i]; }
+            return 'calendrier';
+        }
+        function memoriserDefilement() {
+            if (pos < 0 || !pile[pos]) return;
+            var b = boiteModale(), m = document.getElementById('modal');
+            if (pile[pos].modal) { pile[pos].scroll = b ? b.scrollTop : 0; pile[pos].scrollModal = m ? m.scrollTop : 0; }
+            else pile[pos].scroll = window.scrollY;
+        }
+        function demarrer() {
+            if (pos < 0) {   // première navigation : la vue de départ (avant ce clic) devient l'entrée 0
+                pile = [{ fn: 'switchTab', args: [ongletVisible()], modal: false, scroll: window.scrollY || 0 }];
+                pos = 0;
+                if (!fondAffiche) fondAffiche = pile[0];
+                try { history.replaceState({ synchroNav: 0 }, ''); } catch (e) {}
+            }
+        }
+        function enregistrer(entree) {
+            demarrer();
+            memoriserDefilement();
+            pile = pile.slice(0, pos + 1);
+            pile.push(entree);
+            pos = pile.length - 1;
+            try { history.pushState({ synchroNav: pos }, ''); } catch (e) {}
+            majBoutons();
+        }
+        // Dernière page « de fond » (non modale) à l'entrée k
+        function fondDe(k) {
+            for (var i = k; i >= 0; i--) if (!pile[i].modal && pile[i].fn !== '__fermer') return pile[i];
+            return { fn: 'switchTab', args: ['calendrier'], modal: false };
+        }
+        var fondAffiche = null;
+        function appliquer(e) {
+            if (!e) return;
+            var f = originaux[e.fn] || window[e.fn];
+            if (typeof f === 'function') f.apply(null, e.args);
+        }
+        function rejouer(k) {
+            var e = pile[k];
+            if (!e) return;
+            rejoue = true;
+            try {
+                var fond = fondDe(k);
+                if (e.modal) {
+                    if (fondAffiche !== fond) { originaux.fermerModal(); appliquer(fond); }
+                    appliquer(e);
+                } else {
+                    originaux.fermerModal();
+                    if (fondAffiche !== fond) appliquer(fond);
+                }
+                fondAffiche = fond;
+            } catch (err) { console.error('Navigation :', err); }
+            rejoue = false;
+            pos = k;
+            majBoutons();
+            var s = e.scroll || 0, sm = e.scrollModal || 0;
+            setTimeout(function() {
+                if (e.modal) { var b = boiteModale(), m = document.getElementById('modal'); if (b) b.scrollTop = s; if (m) m.scrollTop = sm; }
+                else window.scrollTo(0, s);
+            }, 30);
+        }
+
+        var originaux = {};
+        function envelopper(nom, modal) {
+            var f = window[nom];
+            if (typeof f !== 'function') return;
+            originaux[nom] = f;
+            window[nom] = function() {
+                if (rejoue || profondeur > 0) return f.apply(this, arguments);
+                var args = Array.prototype.slice.call(arguments);
+                demarrer();
+                // Même onglet déjà affiché (ex. chargement de la page) : pas de nouvelle étape
+                if (nom === 'switchTab' && !modalOuverte() && fondAffiche && fondAffiche.fn === 'switchTab' && fondAffiche.args[0] === args[0]) return f.apply(this, arguments);
+                memoriserDefilement();
+                profondeur++;
+                var r;
+                try { r = f.apply(this, arguments); } finally { profondeur--; }
+                // N'enregistrer que si la vue s'est vraiment affichée (ex. compétition introuvable → rien)
+                if (!modal || modalOuverte()) {
+                    var e = { fn: nom, args: args, modal: !!modal, scroll: 0 };
+                    enregistrer(e);
+                    if (!modal) fondAffiche = e;
+                }
+                return r;
+            };
+        }
+
+        function majBoutons() {
+            var peutRevenir = pos > 0;
+            var h = document.querySelector('#modal .modal-header');
+            if (h && !document.getElementById('nav-back-modal')) {
+                var b = document.createElement('button');
+                b.id = 'nav-back-modal'; b.className = 'nav-back-btn'; b.type = 'button';
+                b.innerHTML = '&larr; Back';
+                b.onclick = function() { history.back(); };
+                h.insertBefore(b, h.firstChild);
+            }
+            var bm = document.getElementById('nav-back-modal');
+            if (bm) bm.style.display = peutRevenir ? '' : 'none';
+            var fl = document.getElementById('nav-back-float');
+            if (!fl) {
+                fl = document.createElement('button');
+                fl.id = 'nav-back-float'; fl.className = 'nav-back-btn'; fl.type = 'button';
+                fl.innerHTML = '&larr; Back';
+                fl.onclick = function() { history.back(); };
+                document.body.appendChild(fl);
+            }
+            fl.style.display = (peutRevenir && !modalOuverte()) ? '' : 'none';
+        }
+
+        function installer() {
+            demarrer();
+            PAGES.forEach(function(n) { envelopper(n, false); });
+            MODALES.forEach(function(n) { envelopper(n, true); });
+            // Fermer la fenêtre = revenir à la page de fond : une étape de l'historique (Back la rouvre)
+            var fermer = window.fermerModal;
+            originaux.fermerModal = fermer;
+            window.fermerModal = function() {
+                var etaitOuverte = modalOuverte();
+                var r = fermer.apply(this, arguments);
+                if (!rejoue && profondeur === 0 && etaitOuverte && pos >= 0 && pile[pos] && pile[pos].modal) {
+                    enregistrer({ fn: '__fermer', args: [], modal: false, scroll: window.scrollY });
+                }
+                majBoutons();
+                return r;
+            };
+            window.addEventListener('popstate', function(ev) {
+                var k = ev.state && typeof ev.state.synchroNav === 'number' ? ev.state.synchroNav : 0;
+                if (k < pile.length) { memoriserDefilement(); rejouer(k); }
+            });
+            // Échap : fermer la fenêtre ouverte
+            document.addEventListener('keydown', function(ev) { if (ev.key === 'Escape' && modalOuverte()) window.fermerModal(); });
+            // Garder le bouton flottant à jour quand la fenêtre s'ouvre / se ferme autrement
+            var m = document.getElementById('modal');
+            if (m && window.MutationObserver) new MutationObserver(majBoutons).observe(m, { attributes: true, attributeFilter: ['class'] });
+            majBoutons();
+        }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', installer); else installer();
+    })();
+    </script>
 
 <style>
 #cal-grid [data-cal-idx][data-has-results="0"] {
