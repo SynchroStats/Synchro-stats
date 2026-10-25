@@ -1,0 +1,45 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Posts – Crystal Skate Open</title>
+<style>
+:root{color-scheme:dark}body{margin:0;background:#0c0722;color:#eee;font:16px/1.4 -apple-system,system-ui,sans-serif;padding:16px}
+h1{font-size:22px;margin:4px 0 16px}h2{font-size:18px;color:#ff5abe;margin:24px 0 8px}
+.imgs{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory}.imgs img{width:80%;max-width:360px;border-radius:8px;scroll-snap-align:start}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}button{flex:1;min-width:150px;padding:14px;border:0;border-radius:12px;background:#06b6d4;color:#0c0722;font-weight:700;font-size:16px}
+button+button{background:#ff5abe}pre{white-space:pre-wrap;background:#161036;padding:12px;border-radius:10px;font:14px/1.45 -apple-system,system-ui,sans-serif}
+.note{background:#3a2a00;padding:10px;border-radius:8px}.verif{background:#161036;padding:10px;border-radius:8px;line-height:2}.verif a{color:#06b6d4;margin-right:12px;font-weight:600}</style></head><body>
+<h1>📸 Crystal Skate Open</h1><p class="verif">🔎 Vérifier les comptes (un appui ouvre Instagram) :<br><a href="https://www.instagram.com/teamdiamonds_estonia/" target="_blank">@teamdiamonds_estonia</a></p><section>
+<h2>Crystal Skate Open</h2>
+<div class="imgs"><img src="crystal-skate-open_1.png?v=db7cd25f8f" alt="slide 1" loading="lazy"><img src="crystal-skate-open_2.png?v=6267c31d85" alt="slide 2" loading="lazy"></div>
+<div class="btns"><button onclick='partager([["crystal-skate-open_1.png?v=db7cd25f8f", "crystal-skate-open_1.png"], ["crystal-skate-open_2.png?v=6267c31d85", "crystal-skate-open_2.png"]], this)'>📥 Enregistrer les 2 images</button>
+<button onclick="copier('cap0', this)">📋 Copier la légende</button></div>
+<pre id="cap0">📍 Crystal Skate Open (23-25 Oct) 🇪🇪
+
+Team Diamonds Junior (@teamdiamonds_estonia) competed at this Estonia competition.
+
+📊 Their scores:
+🏆 Total (SP+FS): 105.22
+📘 Short Program: 40.45 (Tech 25.92 | Prés 14.53)
+📗 Free Skate: 64.77 (Tech 31.76 | Prés 34.01)
+
+📈 Follow their progression throughout the season on our website.
+
+👉 Swipe for the full breakdown — judges &amp; elements for both programs.
+
+🔗 Full results &amp; stats: synchrostats.github.io
+
+⚠️ Scores compiled from official results — let us know if you spot any discrepancy!
+
+#SynchroSkating #SynchronizedSkating #CrystalSkateOpen #EestiSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamDiamonds</pre>
+</section>
+<script>
+async function partager(fichiers, b){
+  try {
+    const files = await Promise.all(fichiers.map(async ([u, f]) => new File([await (await fetch(u, {cache:'reload'})).blob()], f, {type:'image/png'})));
+    if (navigator.canShare && navigator.canShare({files})) { await navigator.share({files}); return; }
+  } catch(e) { if (e.name === 'AbortError') return; }
+  fichiers.forEach(([u, f]) => { const a = document.createElement('a'); a.href = u; a.download = f; document.body.appendChild(a); a.click(); a.remove(); });
+  b.textContent = '✅ Téléchargées';
+}
+function copier(id, b){ navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => { b.textContent = '✅ Légende copiée'; }); }
+</script></body></html>
