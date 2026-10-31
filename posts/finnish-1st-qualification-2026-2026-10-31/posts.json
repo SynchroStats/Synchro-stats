@@ -1,0 +1,26 @@
+{
+ "competition": "Finnish 1st Qualification",
+ "compId": "1787941355706.841",
+ "format": "jour",
+ "jour": "2026-10-31",
+ "segments": "Junior Short Program",
+ "posts": [
+  {
+   "titre": "Junior Short Program",
+   "images": [
+    "finnish-1st-qualification_junior_sp_1_scores.png",
+    "finnish-1st-qualification_junior_sp_2_judges.png",
+    "finnish-1st-qualification_junior_sp_3_elements.png"
+   ],
+   "legende": "🏆 Finnish 1st Qualification — Junior Short Program 🇫🇮\n📍 31 Oct-1 Nov 2026 · Helsinki\n\n🥇 Team Valley Bay Synchro Junior (@valleybaysynchro) — 72.44 (Tech 41.50 | Pres 30.94)\n🥈 Team Helsinki Fintastic Junior (@helsinkifintastic) — 65.95 (Tech 38.69 | Pres 29.26)\n🥉 Team Musketeers Junior (@musketeersofficial) — 65.62 (Tech 38.09 | Pres 28.53)\n…and 11 more teams.\n\n👉 Swipe: full leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #Finnish1StQualification #FinnishSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamValleyBaySynchro #TeamHelsinkiFintastic #TeamMusketeers #TeamDreamEdges #TeamReflections #TeamMystique",
+   "caption_file": "finnish-1st-qualification_junior_sp_caption.txt"
+  }
+ ],
+ "comptes_manquants": [],
+ "comptes_utilises": [
+  "@helsinkifintastic",
+  "@musketeersofficial",
+  "@valleybaysynchro"
+ ],
+ "comptes_invalides": []
+}
