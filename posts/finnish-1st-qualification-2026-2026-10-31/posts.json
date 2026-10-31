@@ -3,8 +3,18 @@
  "compId": "1787941355706.841",
  "format": "jour",
  "jour": "2026-10-31",
- "segments": "Junior Short Program",
+ "segments": "Senior Short Program + Junior Short Program",
  "posts": [
+  {
+   "titre": "Senior Short Program",
+   "images": [
+    "finnish-1st-qualification_senior_sp_1_scores.png",
+    "finnish-1st-qualification_senior_sp_2_judges.png",
+    "finnish-1st-qualification_senior_sp_3_elements.png"
+   ],
+   "legende": "🏆 Finnish 1st Qualification — Senior Short Program 🇫🇮\n📍 31 Oct-1 Nov 2026 · Helsinki\n\n🥇 Team Unique (@teamuniquehsk) — 80.57 (Tech 44.08 | Pres 36.49)\n🥈 Team Helsinki Rockettes (@helsinkirockettes) — 79.89 (Tech 43.23 | Pres 36.66)\n🥉 Team Lumineers (@lumineersespoo) — 74.53 (Tech 40.53 | Pres 34.00)\n4. Team Marigold Ice Unity (@marigoldiceunity) — 73.00 (Tech 41.24 | Pres 33.76)\n\n👉 Swipe: full leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #Finnish1StQualification #FinnishSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamUnique #TeamHelsinkiRockettes #TeamLumineers #TeamMarigoldIceUnity",
+   "caption_file": "finnish-1st-qualification_senior_sp_caption.txt"
+  },
   {
    "titre": "Junior Short Program",
    "images": [
@@ -22,15 +32,19 @@
   "@festaaboensia",
   "@fireblades_fin",
   "@helsinkifintastic",
+  "@helsinkirockettes",
   "@icediamondsofficial",
   "@icefusionfin",
   "@iceinfinityttk",
   "@icesteps",
+  "@lumineersespoo",
+  "@marigoldiceunity",
   "@musketeersofficial",
   "@reflectionsfin",
   "@stellapolarisfin",
   "@suncityswing",
   "@teammystiquehsk",
+  "@teamuniquehsk",
   "@valleybaysynchro"
  ],
  "comptes_invalides": []
