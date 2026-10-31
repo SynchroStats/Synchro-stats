@@ -1,0 +1,41 @@
+{
+ "competition": "Dream Cup",
+ "compId": "1793304678496.4079",
+ "format": "jour",
+ "jour": "2026-10-31",
+ "segments": "Junior Short Program + Junior Free Skate",
+ "posts": [
+  {
+   "titre": "Junior Short Program + Junior Free Skate",
+   "images": [
+    "dream-cup_junior_sp_1_scores.png",
+    "dream-cup_junior_sp_2_judges.png",
+    "dream-cup_junior_sp_3_elements.png",
+    "dream-cup_junior_fs_1_scores.png",
+    "dream-cup_junior_fs_2_judges.png",
+    "dream-cup_junior_fs_3_elements.png"
+   ],
+   "legende": "🏆 Dream Cup — Junior Short Program & Junior Free Skate 🇷🇺\n📍 29-1 Oct 2026 · Moscow\n\n🔹 Junior Short Program\n🥇 Team Sunrise-1 Junior — 71.60 (Tech 38.75 | Pres 32.85)\n🥈 Team Quick Step Junior — 64.48 (Tech 35.68 | Pres 28.80)\n🥉 Team Frivolite Junior — 64.39 (Tech 36.13 | Pres 28.26)\n…and 12 more teams.\n\n🔹 Junior Free Skate\n🥇 Team Ice Crystal Junior — 113.24 (Tech 48.49 | Pres 64.75)\n🥈 Team Frivolite Junior — 109.31 (Tech 47.36 | Pres 61.95)\n🥉 Team Quick Step Junior — 108.50 (Tech 47.22 | Pres 61.28)\n…and 12 more teams.\n\n👉 Swipe: full leaderboard → every judge → every element, for each segment.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #DreamCup #RussianSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamSunrise1 #TeamQuickStep #TeamFrivolite #TeamIceCrystal #TeamSunrise3 #TeamTwinkleIce",
+   "caption_file": "dream-cup_2026-10-31_caption.txt"
+  }
+ ],
+ "comptes_manquants": [
+  "Sunrise-1 Junior",
+  "Quick Step Junior",
+  "Frivolite Junior",
+  "Ice Crystal Junior",
+  "Sunrise-3 Junior",
+  "Twinkle Ice Junior",
+  "Aviator Junior",
+  "Rubin Junior",
+  "Yamal Junior",
+  "Ledokol Junior",
+  "Zhemchuzhina Junior",
+  "Strelki Junior",
+  "Khrustalny Konek Junior",
+  "Millennium Junior",
+  "Art Junior"
+ ],
+ "comptes_utilises": [],
+ "comptes_invalides": []
+}
