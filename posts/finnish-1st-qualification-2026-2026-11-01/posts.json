@@ -3,8 +3,19 @@
  "compId": "1787941355706.841",
  "format": "jour",
  "jour": "2026-11-01",
- "segments": "Junior Free Skate",
+ "segments": "Senior Free Skate + Junior Free Skate",
  "posts": [
+  {
+   "titre": "Senior Free Skate",
+   "images": [
+    "finnish-1st-qualification_senior_fs_0_total.png",
+    "finnish-1st-qualification_senior_fs_1_scores.png",
+    "finnish-1st-qualification_senior_fs_2_judges.png",
+    "finnish-1st-qualification_senior_fs_3_elements.png"
+   ],
+   "legende": "🏆 Finnish 1st Qualification — Senior Free Skate 🇫🇮\n📍 31 Oct-1 Nov 2026 · Helsinki\n\n🥇 Team Unique (@teamuniquehsk) — 143.18 (Tech 68.23 | Pres 74.95)\n🥈 Team Marigold Ice Unity (@marigoldiceunity) — 130.01 (Tech 62.74 | Pres 68.27)\n🥉 Team Lumineers (@lumineersespoo) — 126.61 (Tech 58.86 | Pres 67.75)\n4. Team Helsinki Rockettes (@helsinkirockettes) — 123.05 (Tech 57.28 | Pres 67.77)\n\n👉 Swipe: full leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #Finnish1StQualification #FinnishSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamUnique #TeamMarigoldIceUnity #TeamLumineers #TeamHelsinkiRockettes",
+   "caption_file": "finnish-1st-qualification_senior_fs_caption.txt"
+  },
   {
    "titre": "Junior Free Skate",
    "images": [
@@ -23,15 +34,19 @@
   "@festaaboensia",
   "@fireblades_fin",
   "@helsinkifintastic",
+  "@helsinkirockettes",
   "@icediamondsofficial",
   "@icefusionfin",
   "@iceinfinityttk",
   "@icesteps",
+  "@lumineersespoo",
+  "@marigoldiceunity",
   "@musketeersofficial",
   "@reflectionsfin",
   "@stellapolarisfin",
   "@suncityswing",
   "@teammystiquehsk",
+  "@teamuniquehsk",
   "@valleybaysynchro"
  ],
  "comptes_invalides": []
