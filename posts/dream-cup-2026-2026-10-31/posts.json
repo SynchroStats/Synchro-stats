@@ -1,0 +1,54 @@
+{
+ "competition": "Dream Cup",
+ "compId": "1793304678496.4079",
+ "format": "jour",
+ "jour": "2026-10-31",
+ "segments": "Senior Short Program + Junior Free Skate",
+ "posts": [
+  {
+   "titre": "Senior Short Program",
+   "images": [
+    "dream-cup_senior_sp_1_scores.png",
+    "dream-cup_senior_sp_2_judges.png",
+    "dream-cup_senior_sp_3_elements.png"
+   ],
+   "legende": "🏆 Dream Cup — Senior Short Program 🇷🇺\n📍 29 Oct-1 Nov 2026 · Moscow\n\n🥇 Team Paradise — 78.15 (Tech 41.64 | Pres 36.51)\n🥈 Team Crystal Ice — 73.43 (Tech 39.38 | Pres 34.05)\n🥉 Team Quick Step — 72.12 (Tech 39.00 | Pres 33.12)\n4. Team Zhemchuzhina — 66.95 (Tech 35.50 | Pres 31.45)\n5. Team Arabesque — 64.02 (Tech 35.82 | Pres 29.20)\n\n👉 Swipe: full leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #DreamCup #RussianSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamParadise #TeamCrystalIce #TeamQuickStep #TeamZhemchuzhina #TeamArabesque",
+   "caption_file": "dream-cup_senior_sp_caption.txt"
+  },
+  {
+   "titre": "Junior Free Skate",
+   "images": [
+    "dream-cup_junior_fs_0_total.png",
+    "dream-cup_junior_fs_1_scores.png",
+    "dream-cup_junior_fs_2_judges.png",
+    "dream-cup_junior_fs_3_elements.png"
+   ],
+   "legende": "🏆 Dream Cup — Junior Final Results 🇷🇺\n📍 29 Oct-1 Nov 2026 · Moscow\n\n🥇 Team Sunrise-1 Junior — 178.15 (SP 71.60 | FS 106.55)\n🥈 Team Ice Crystal Junior — 177.45 (SP 64.21 | FS 113.24)\n🥉 Team Frivolite Junior — 173.70 (SP 64.39 | FS 109.31)\n4. Team Quick Step Junior — 172.98 (SP 64.48 | FS 108.50)\n5. Team Sunrise-3 Junior — 160.11 (SP 59.12 | FS 100.99)\n6. Team Twinkle Ice Junior — 151.50 (SP 56.06 | FS 95.44)\n7. Team Rubin Junior — 147.49 (SP 55.21 | FS 92.28)\n8. Team Zhemchuzhina Junior — 143.75 (SP 50.07 | FS 93.68)\n9. Team Aviator Junior — 143.64 (SP 55.45 | FS 88.19)\n10. Team Yamal Junior — 142.34 (SP 51.40 | FS 90.94)\n11. Team Ledokol Junior — 137.02 (SP 51.02 | FS 86.00)\n12. Team Strelki Junior — 123.27 (SP 46.74 | FS 76.53)\n13. Team Millennium Junior — 121.41 (SP 42.03 | FS 79.38)\n14. Team Khrustalny Konek Junior — 119.63 (SP 44.36 | FS 75.27)\n15. Team Art Junior — 118.68 (SP 41.33 | FS 77.35)\n\n⭐ Free Skate winner: Team Ice Crystal Junior — 113.24\n\n👉 Swipe: final standings → Free Skate leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #DreamCup #RussianSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamSunrise1 #TeamIceCrystal #TeamFrivolite #TeamQuickStep #TeamSunrise3 #TeamTwinkleIce",
+   "caption_file": "dream-cup_junior_fs_caption.txt"
+  }
+ ],
+ "comptes_manquants": [
+  "Paradise",
+  "Crystal Ice",
+  "Quick Step",
+  "Zhemchuzhina",
+  "Arabesque",
+  "Ice Crystal Junior",
+  "Frivolite Junior",
+  "Quick Step Junior",
+  "Sunrise-1 Junior",
+  "Sunrise-3 Junior",
+  "Twinkle Ice Junior",
+  "Zhemchuzhina Junior",
+  "Rubin Junior",
+  "Yamal Junior",
+  "Aviator Junior",
+  "Ledokol Junior",
+  "Millennium Junior",
+  "Art Junior",
+  "Strelki Junior",
+  "Khrustalny Konek Junior"
+ ],
+ "comptes_utilises": [],
+ "comptes_invalides": []
+}

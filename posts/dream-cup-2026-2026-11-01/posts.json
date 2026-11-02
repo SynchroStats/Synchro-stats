@@ -1,0 +1,29 @@
+{
+ "competition": "Dream Cup",
+ "compId": "1793304678496.4079",
+ "format": "jour",
+ "jour": "2026-11-01",
+ "segments": "Senior Free Skate",
+ "posts": [
+  {
+   "titre": "Senior Free Skate",
+   "images": [
+    "dream-cup_senior_fs_0_total.png",
+    "dream-cup_senior_fs_1_scores.png",
+    "dream-cup_senior_fs_2_judges.png",
+    "dream-cup_senior_fs_3_elements.png"
+   ],
+   "legende": "🏆 Dream Cup — Senior Final Results 🇷🇺\n📍 29 Oct-1 Nov 2026 · Moscow\n\n🥇 Team Paradise — 219.26 (SP 78.15 | FS 141.11)\n🥈 Team Crystal Ice — 216.27 (SP 73.43 | FS 142.84)\n🥉 Team Quick Step — 194.66 (SP 72.12 | FS 122.54)\n4. Team Zhemchuzhina — 182.42 (SP 66.95 | FS 115.47)\n5. Team Arabesque — 166.12 (SP 64.02 | FS 102.10)\n\n⭐ Free Skate winner: Team Crystal Ice — 142.84\n\n👉 Swipe: final standings → Free Skate leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #DreamCup #RussianSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamParadise #TeamCrystalIce #TeamQuickStep #TeamZhemchuzhina #TeamArabesque",
+   "caption_file": "dream-cup_senior_fs_caption.txt"
+  }
+ ],
+ "comptes_manquants": [
+  "Crystal Ice",
+  "Paradise",
+  "Quick Step",
+  "Zhemchuzhina",
+  "Arabesque"
+ ],
+ "comptes_utilises": [],
+ "comptes_invalides": []
+}
