@@ -1,0 +1,45 @@
+{
+ "competition": "Synchro Fall Classic",
+ "compId": "1787941496338.066",
+ "format": "jour",
+ "jour": "2026-11-07",
+ "segments": "Senior Short Program + Junior Short Program",
+ "posts": [
+  {
+   "titre": "Senior Short Program",
+   "images": [
+    "synchro-fall-classic_senior_sp_1_scores.png",
+    "synchro-fall-classic_senior_sp_2_judges.png",
+    "synchro-fall-classic_senior_sp_3_elements.png"
+   ],
+   "legende": "🏆 Synchro Fall Classic — Senior Short Program 🇺🇸\n📍 6-8 Nov 2026 · Irvine\n\n🥇 Team Haydenettes — 72.22 (Tech 37.84 | Pres 34.38)\n🥈 Team Skyliners — 70.99 (Tech 39.20 | Pres 32.79)\n🥉 Team Teams Elite — 68.20 (Tech 36.47 | Pres 32.73)\n4. Team Miami University — 66.25 (Tech 35.40 | Pres 31.85)\n\n👉 Swipe: full leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #SynchroFallClassic #USSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamHaydenettes #TeamSkyliners #TeamTeamsElite #TeamMiamiUniversity",
+   "caption_file": "synchro-fall-classic_senior_sp_caption.txt"
+  },
+  {
+   "titre": "Junior Short Program",
+   "images": [
+    "synchro-fall-classic_junior_sp_1_scores.png",
+    "synchro-fall-classic_junior_sp_2_judges.png",
+    "synchro-fall-classic_junior_sp_3_elements.png"
+   ],
+   "legende": "🏆 Synchro Fall Classic — Junior Short Program 🇺🇸\n📍 6-8 Nov 2026 · Irvine\n\n🥇 Team Image Junior — 67.91 (Tech 38.18 | Pres 29.73)\n🥈 Team Teams Elite Junior — 67.88 (Tech 36.97 | Pres 31.91)\n🥉 Team Skyliners Junior — 67.09 (Tech 37.71 | Pres 30.38)\n4. Team Lexettes Junior — 61.18 (Tech 33.72 | Pres 28.46)\n5. Team Fond Du Lac Blades Junior — 59.42 (Tech 34.68 | Pres 24.74)\n6. Team Northernettes Junior — 59.03 (Tech 33.10 | Pres 27.93)\n7. Team Hockettes Junior — 54.21 (Tech 30.47 | Pres 23.74)\n8. Team Dc Edge Junior — 52.36 (Tech 28.95 | Pres 25.41)\n\n👉 Swipe: full leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #SynchroFallClassic #USSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamImage #TeamTeamsElite #TeamSkyliners #TeamLexettes #TeamFondDuLacBlades #TeamNorthernettes",
+   "caption_file": "synchro-fall-classic_junior_sp_caption.txt"
+  }
+ ],
+ "comptes_manquants": [
+  "Haydenettes",
+  "Skyliners",
+  "Teams Elite",
+  "Miami University",
+  "Image Junior",
+  "Teams Elite Junior",
+  "Skyliners Junior",
+  "Lexettes Junior",
+  "Fond Du Lac Blades Junior",
+  "Northernettes Junior",
+  "Hockettes Junior",
+  "Dc Edge Junior"
+ ],
+ "comptes_utilises": [],
+ "comptes_invalides": []
+}
