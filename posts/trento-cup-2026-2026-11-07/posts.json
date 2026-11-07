@@ -1,0 +1,28 @@
+{
+ "competition": "Trento Cup",
+ "compId": "1792917320935.4784",
+ "format": "jour",
+ "jour": "2026-11-07",
+ "segments": "Junior Short Program",
+ "posts": [
+  {
+   "titre": "Junior Short Program",
+   "images": [
+    "trento-cup_junior_sp_1_scores.png",
+    "trento-cup_junior_sp_2_judges.png",
+    "trento-cup_junior_sp_3_elements.png"
+   ],
+   "legende": "🏆 Trento Cup — Junior Short Program 🇮🇹\n📍 6-8 Nov 2026 · Trento\n\n🥇 Team Kometa Junior (@teamkometa_junior) — 46.22 (Tech 24.15 | Pres 22.07)\n🥈 Team Hot Shivers Junior (@teamhotshivers) — 44.76 (Tech 23.60 | Pres 22.16)\n🥉 Team Ice On Fire Junior (@iceonfirejunior) — 42.87 (Tech 22.92 | Pres 20.95)\n4. Team Ladybirds Junior — 37.50 (Tech 18.33 | Pres 19.17)\n\n👉 Swipe: full leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #TrentoCup #ItalianSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamKometa #TeamHotShivers #TeamIceOnFire #TeamLadybirds",
+   "caption_file": "trento-cup_junior_sp_caption.txt"
+  }
+ ],
+ "comptes_manquants": [
+  "Ladybirds Junior"
+ ],
+ "comptes_utilises": [
+  "@iceonfirejunior",
+  "@teamhotshivers",
+  "@teamkometa_junior"
+ ],
+ "comptes_invalides": []
+}
