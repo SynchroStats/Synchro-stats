@@ -4770,6 +4770,7 @@ if (rang === 1) rankBadge = rang;
                 html += '<th style="padding:8px 6px;text-align:center;border:1px solid #ddd;white-space:nowrap;">Total</th>';
                 html += '<th style="padding:8px 6px;text-align:center;border:1px solid #ddd;white-space:nowrap;">Tech</th>';
                 html += '<th style="padding:8px 6px;text-align:center;border:1px solid #ddd;white-space:nowrap;">Pres</th>';
+                html += '<th style="padding:8px 6px;text-align:center;border:1px solid #ddd;white-space:nowrap;">Ded</th>';
                 html += '</tr></thead><tbody>';
                 
                 const equipesPC = [...resPC.data.equipes].sort((a, b) => b.total - a.total);
@@ -4806,6 +4807,7 @@ if (rang === 1) rankBadge = rang;
                     html += '<td class="' + scoreClass + '" onclick="voirDetailsEquipe(\'' + eq.nom + '\', \'' + resPC.id + '\', null)" style="padding:12px;text-align:center;font-weight:bold;font-size:1.2em;border:1px solid #ddd;cursor:pointer;" title="See details">' + eq.total.toFixed(2) + '</td>';
                     html += '<td class="' + techClass + '" style="padding:12px;text-align:center;border:1px solid #ddd;">' + eq.tech.toFixed(2) + '</td>';
                     html += '<td class="' + presClass + '" style="padding:12px;text-align:center;border:1px solid #ddd;">' + eq.pres.toFixed(2) + '</td>';
+                    html += celluleDeduction(eq);
                     html += '</tr>';
                 });
                 
@@ -4826,6 +4828,7 @@ if (rang === 1) rankBadge = rang;
                 html += '<th style="padding:8px 6px;text-align:center;border:1px solid #ddd;white-space:nowrap;">Total</th>';
                 html += '<th style="padding:8px 6px;text-align:center;border:1px solid #ddd;white-space:nowrap;">Tech</th>';
                 html += '<th style="padding:8px 6px;text-align:center;border:1px solid #ddd;white-space:nowrap;">Pres</th>';
+                html += '<th style="padding:8px 6px;text-align:center;border:1px solid #ddd;white-space:nowrap;">Ded</th>';
                 html += '</tr></thead><tbody>';
                 
                 const equipesPL = [...resPL.data.equipes].sort((a, b) => b.total - a.total);
@@ -4860,6 +4863,7 @@ if (rang === 1) rankBadge = rang;
                     html += '<td class="' + scoreClass + '" onclick="voirDetailsEquipe(\'' + eq.nom + '\', null, \'' + resPL.id + '\')" style="padding:12px;text-align:center;font-weight:bold;font-size:1.1em;border:1px solid #ddd;cursor:pointer;" title="See details">' + eq.total.toFixed(2) + '</td>';
                     html += '<td class="' + techClass + '" style="padding:12px;text-align:center;border:1px solid #ddd;">' + eq.tech.toFixed(2) + '</td>';
                     html += '<td class="' + presClass + '" style="padding:12px;text-align:center;border:1px solid #ddd;">' + eq.pres.toFixed(2) + '</td>';
+                    html += celluleDeduction(eq);
                     html += '</tr>';
                 });
                 
@@ -9790,6 +9794,14 @@ if (rang === 1) rankBadge = rang;
             table.querySelectorAll('th[data-col]').forEach(h => { h.style.background = h === th ? '#dfe6ff' : ''; h.querySelector('.tri').textContent = h === th ? ' ▼' : ''; });
         }
 
+        // Déductions d'une équipe (valeur positive) et éléments chutés (« CrL », « I+pi »…) — même règle que les posts
+        function celluleDeduction(eq) {
+            const ded = Math.max(0, Math.round(((eq.tech || 0) + (eq.pres || 0) - (eq.total || 0)) * 100) / 100);
+            const chutes = (eq.elements || []).filter(x => x.chute).map(x => String(x.type || x.code || '').replace(/\s*\(.*?\)/g, '').trim()).filter(Boolean);
+            if (!ded) return '<td style="padding:12px;text-align:center;border:1px solid #ddd;background:#fff;color:#888;">0</td>';
+            return '<td style="padding:12px;text-align:center;border:1px solid #ddd;background:#fde8eb;color:#b0213a;font-weight:bold;">-' + (+ded.toFixed(2)) +
+                (chutes.length ? '<div style="font-size:0.72em;font-weight:normal;">' + chutes.join(', ') + '</div>' : '') + '</td>';
+        }
         function genererTableauxPreview(teams, cat, isIntlOrCS, nations, saisonRef) {
             // Saison de la compétition prévisualisée et saison précédente (ex. '2627' → '2526')
             saisonRef = saisonRef || (typeof _calCurrentSaison !== 'undefined' ? _calCurrentSaison : '2627');
