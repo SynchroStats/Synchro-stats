@@ -3,8 +3,19 @@
  "compId": "1787941496338.066",
  "format": "jour",
  "jour": "2026-11-08",
- "segments": "Junior Free Skate",
+ "segments": "Senior Free Skate + Junior Free Skate",
  "posts": [
+  {
+   "titre": "Senior Free Skate",
+   "images": [
+    "synchro-fall-classic_senior_fs_0_total.png",
+    "synchro-fall-classic_senior_fs_1_scores.png",
+    "synchro-fall-classic_senior_fs_2_judges.png",
+    "synchro-fall-classic_senior_fs_3_elements.png"
+   ],
+   "legende": "🏆 Synchro Fall Classic — Senior Final Results 🇺🇸\n📍 6-8 Nov 2026 · Irvine\n\n🥇 Team Teams Elite (@teamselitesenior) — 197.69 (SP 68.20 | FS 129.49)\n🥈 Team Skyliners (@skylinerssenior_usa) — 188.73 (SP 70.99 | FS 117.74)\n🥉 Team Miami University (@miamioh_skating) — 188.08 (SP 66.25 | FS 121.83)\n4. Team Haydenettes (@haydenettesusa) — 186.46 (SP 72.22 | FS 114.24)\n\n👉 Swipe: final standings → Free Skate leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #SynchroFallClassic #USSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamTeamsElite #TeamSkyliners #TeamMiamiUniversity #TeamHaydenettes",
+   "caption_file": "synchro-fall-classic_senior_fs_caption.txt"
+  },
   {
    "titre": "Junior Free Skate",
    "images": [
@@ -21,12 +32,16 @@
  "comptes_utilises": [
   "@dcedgejuniorusa",
   "@fondyblades_junior",
+  "@haydenettesusa",
   "@hockettesjunior",
   "@lexettesusa",
+  "@miamioh_skating",
   "@northernettessynchro_usa",
   "@skylinersjunior_usa",
+  "@skylinerssenior_usa",
   "@teamimagejunior",
-  "@teamselitejrusa"
+  "@teamselitejrusa",
+  "@teamselitesenior"
  ],
  "comptes_invalides": []
 }
