@@ -1,0 +1,39 @@
+{
+ "competition": "Nationell synkrotävling 1",
+ "compId": "1792997273879.2741",
+ "format": "jour",
+ "jour": "2026-11-08",
+ "segments": "Senior Free Skate + Junior Free Skate",
+ "posts": [
+  {
+   "titre": "Senior Free Skate",
+   "images": [
+    "nationell-synkrotavling-1_senior_fs_0_total.png",
+    "nationell-synkrotavling-1_senior_fs_1_scores.png",
+    "nationell-synkrotavling-1_senior_fs_2_judges.png",
+    "nationell-synkrotavling-1_senior_fs_3_elements.png"
+   ],
+   "legende": "🏆 Nationell synkrotävling 1 — Senior Final Results 🇸🇪\n📍 7-8 Nov 2026 · Sollentuna\n\n🥇 Team Seaside — 171.33 (SP 63.18 | FS 108.15)\n\n👉 Swipe: final standings → Free Skate leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #NationellSynkrotavling1 #SwedishSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamSeaside",
+   "caption_file": "nationell-synkrotavling-1_senior_fs_caption.txt"
+  },
+  {
+   "titre": "Junior Free Skate",
+   "images": [
+    "nationell-synkrotavling-1_junior_fs_0_total.png",
+    "nationell-synkrotavling-1_junior_fs_1_scores.png",
+    "nationell-synkrotavling-1_junior_fs_2_judges.png",
+    "nationell-synkrotavling-1_junior_fs_3_elements.png"
+   ],
+   "legende": "🏆 Nationell synkrotävling 1 — Junior Final Results 🇸🇪\n📍 7-8 Nov 2026 · Sollentuna\n\n🥇 Team Spirit Junior — 170.58 (SP 67.82 | FS 102.76)\n🥈 Team Moonlights Junior — 141.93 (SP 48.90 | FS 93.03)\n🥉 Team Seaside Junior — 100.97 (SP 40.43 | FS 60.54)\n4. Team Eternity Junior — 45.27 (SP 45.27)\n\n👉 Swipe: final standings → Free Skate leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #NationellSynkrotavling1 #SwedishSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamSpirit #TeamMoonlights #TeamSeaside #TeamEternity",
+   "caption_file": "nationell-synkrotavling-1_junior_fs_caption.txt"
+  }
+ ],
+ "comptes_manquants": [
+  "Seaside",
+  "Spirit Junior",
+  "Moonlights Junior",
+  "Seaside Junior"
+ ],
+ "comptes_utilises": [],
+ "comptes_invalides": []
+}

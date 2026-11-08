@@ -3,7 +3,7 @@
  "compId": "1787941398081.738",
  "format": "jour",
  "jour": "2026-11-08",
- "segments": "Senior Short Program + Junior Short Program",
+ "segments": "Senior Short Program + Junior Short Program + Junior Free Skate",
  "posts": [
   {
    "titre": "Senior Short Program",
@@ -12,7 +12,7 @@
     "quebec-ch_senior_sp_2_judges.png",
     "quebec-ch_senior_sp_3_elements.png"
    ],
-   "legende": "🏆 Quebec Ch. — Senior Short Program 🇨🇦\n📍 5-8 Nov 2026 · Sainte Marie de Beauce\n\n🥇 Team Les Suprêmes (@lessupremes) — 74.00 (Tech 37.76 | Pres 36.24)\n🥈 Team Nova (@novasenior) — 66.14 (Tech 31.23 | Pres 34.91)\n\n👉 Swipe: full leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #QuebecChampionships #CanadaSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamLesSupremes #TeamNova",
+   "legende": "🏆 Quebec Ch. — Senior Short Program 🇨🇦\n📍 5-8 Nov 2026 · Sainte Marie de Beauce\n\n🥇 Team Les Supremes (@lessupremes) — 74.00 (Tech 37.76 | Pres 36.24)\n🥈 Team Nova (@novasenior) — 66.14 (Tech 31.23 | Pres 34.91)\n\n👉 Swipe: full leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #QuebecChampionships #CanadaSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamLesSupremes #TeamNova",
    "caption_file": "quebec-ch_senior_sp_caption.txt"
   },
   {
@@ -22,8 +22,19 @@
     "quebec-ch_junior_sp_2_judges.png",
     "quebec-ch_junior_sp_3_elements.png"
    ],
-   "legende": "🏆 Quebec Ch. — Junior Short Program 🇨🇦\n📍 5-8 Nov 2026 · Sainte Marie de Beauce\n\n🥇 Team Nova Junior (@novajunior.ca) — 59.80 (Tech 30.80 | Pres 29.00)\n🥈 Team Les Suprêmes Junior (@lessupremesjunior) — 55.64 (Tech 27.32 | Pres 30.32)\n🥉 Team Prima Junior (@prima__junior) — 49.10 (Tech 27.49 | Pres 23.61)\n\n👉 Swipe: full leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #QuebecChampionships #CanadaSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamNova #TeamLesSupremes #TeamPrima",
+   "legende": "🏆 Quebec Ch. — Junior Short Program 🇨🇦\n📍 5-8 Nov 2026 · Sainte Marie de Beauce\n\n🥇 Team Nova Junior (@novajunior.ca) — 59.80 (Tech 30.80 | Pres 29.00)\n🥈 Team Les Supremes Junior (@lessupremesjunior) — 55.64 (Tech 27.32 | Pres 30.32)\n🥉 Team Prima Junior (@prima__junior) — 49.10 (Tech 27.49 | Pres 23.61)\n\n👉 Swipe: full leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #QuebecChampionships #CanadaSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamNova #TeamLesSupremes #TeamPrima",
    "caption_file": "quebec-ch_junior_sp_caption.txt"
+  },
+  {
+   "titre": "Junior Free Skate",
+   "images": [
+    "quebec-ch_junior_fs_0_total.png",
+    "quebec-ch_junior_fs_1_scores.png",
+    "quebec-ch_junior_fs_2_judges.png",
+    "quebec-ch_junior_fs_3_elements.png"
+   ],
+   "legende": "🏆 Quebec Ch. — Junior Final Results 🇨🇦\n📍 5-8 Nov 2026 · Sainte Marie de Beauce\n\n🥇 Team Les Supremes Junior (@lessupremesjunior) — 157.85 (SP 55.64 | FS 102.21)\n🥈 Team Nova Junior (@novajunior.ca) — 151.84 (SP 59.80 | FS 92.04)\n🥉 Team Prima Junior (@prima__junior) — 125.93 (SP 49.10 | FS 76.83)\n\n👉 Swipe: final standings → Free Skate leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #QuebecChampionships #CanadaSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamLesSupremes #TeamNova #TeamPrima",
+   "caption_file": "quebec-ch_junior_fs_caption.txt"
   }
  ],
  "comptes_manquants": [],
