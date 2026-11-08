@@ -3,8 +3,19 @@
  "compId": "1792917320935.4784",
  "format": "jour",
  "jour": "2026-11-08",
- "segments": "Junior Free Skate",
+ "segments": "Senior Free Skate + Junior Free Skate",
  "posts": [
+  {
+   "titre": "Senior Free Skate",
+   "images": [
+    "trento-cup_senior_fs_0_total.png",
+    "trento-cup_senior_fs_1_scores.png",
+    "trento-cup_senior_fs_2_judges.png",
+    "trento-cup_senior_fs_3_elements.png"
+   ],
+   "legende": "🏆 Trento Cup — Senior Final Results 🇮🇹\n📍 6-8 Nov 2026 · Trento\n\n🥇 Team Ice On Fire (@teamiceonfire) — 187.24 (SP 70.16 | FS 117.08)\n🥈 Team Hot Shivers (@teamhotshivers) — 162.69 (SP 57.34 | FS 105.35)\n🥉 Team Ladybirds — 101.21 (SP 36.45 | FS 64.76)\n\n👉 Swipe: final standings → Free Skate leaderboard → every judge → every element.\n\n📈 Follow every team's progression throughout the season on our website.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #TrentoCup #ItalianSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamIceOnFire #TeamHotShivers #TeamLadybirds",
+   "caption_file": "trento-cup_senior_fs_caption.txt"
+  },
   {
    "titre": "Junior Free Skate",
    "images": [
@@ -18,11 +29,13 @@
   }
  ],
  "comptes_manquants": [
+  "Ladybirds",
   "Ladybirds Junior"
  ],
  "comptes_utilises": [
   "@iceonfirejunior",
   "@teamhotshivers",
+  "@teamiceonfire",
   "@teamkometa_junior"
  ],
  "comptes_invalides": []
