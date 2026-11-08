@@ -1,0 +1,26 @@
+{
+ "competition": "Masters de Patinage",
+ "compId": "1792997273878.1317",
+ "format": "national",
+ "posts": [
+  {
+   "titre": "Masters de Patinage",
+   "images": [
+    "masters-de-patinage_1.png",
+    "masters-de-patinage_2.png",
+    "masters-de-patinage_3.png",
+    "masters-de-patinage_4.png"
+   ],
+   "legende": "📍 Masters de Patinage (7-8 Nov) 🇫🇷\n\n🔹 Senior\n🥇 Team Zoulous (@zoulousfrance) — 150.07 (SP 51.96 | FS 98.11)\n🥈 Team Jeanne D'arc (@teamjeannedarcjunior) — 143.03 (SP 48.93 | FS 94.10)\n\n🔹 Junior\n🥇 Team Jeanne D'arc (@teamjeannedarcjunior) — 131.43 (SP 50.38 | FS 81.05)\n🥈 Team Illuminettes — 95.54 (SP 36.40 | FS 59.14)\n\n📈 Follow every team's progression throughout the season on our website.\n\n👉 Swipe for the full breakdown — judges & elements for both programs.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #MastersDePatinage #FrenchSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamZoulous #TeamJeanneDArc #TeamIlluminettes",
+   "caption_file": "masters-de-patinage_caption.txt"
+  }
+ ],
+ "comptes_manquants": [
+  "Illuminettes Junior"
+ ],
+ "comptes_utilises": [
+  "@teamjeannedarcjunior",
+  "@zoulousfrance"
+ ],
+ "comptes_invalides": []
+}
