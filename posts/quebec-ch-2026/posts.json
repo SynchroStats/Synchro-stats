@@ -1,0 +1,28 @@
+{
+ "competition": "Quebec Ch.",
+ "compId": "1787941398081.738",
+ "format": "national",
+ "posts": [
+  {
+   "titre": "Quebec Ch.",
+   "images": [
+    "quebec-ch_1.png",
+    "quebec-ch_2.png",
+    "quebec-ch_3.png",
+    "quebec-ch_4.png",
+    "quebec-ch_5.png"
+   ],
+   "legende": "📍 Quebec Ch. (5-8 Nov) 🇨🇦\n\n🔹 Senior\n🥇 Team Les Supremes (@lessupremes) — 208.69 (SP 74.00 | FS 134.69)\n🥈 Team Nova (@novasenior) — 66.14 (SP 66.14)\n\n🔹 Junior\n🥇 Team Les Supremes (@lessupremesjunior) — 157.85 (SP 55.64 | FS 102.21)\n🥈 Team Nova (@novajunior.ca) — 151.84 (SP 59.80 | FS 92.04)\n🥉 Team Prima (@prima__junior) — 125.93 (SP 49.10 | FS 76.83)\n\n📈 Follow every team's progression throughout the season on our website.\n\n👉 Swipe for the full breakdown — judges & elements for both programs.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #QuebecChampionships #CanadaSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamLesSupremes #TeamNova #TeamPrima",
+   "caption_file": "quebec-ch_caption.txt"
+  }
+ ],
+ "comptes_manquants": [],
+ "comptes_utilises": [
+  "@lessupremes",
+  "@lessupremesjunior",
+  "@novajunior.ca",
+  "@novasenior",
+  "@prima__junior"
+ ],
+ "comptes_invalides": []
+}
