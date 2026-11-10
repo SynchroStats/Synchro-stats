@@ -1,0 +1,48 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Posts – Nationell synkrotävling 1</title>
+<style>
+:root{color-scheme:dark}body{margin:0;background:#0c0722;color:#eee;font:16px/1.4 -apple-system,system-ui,sans-serif;padding:16px}
+h1{font-size:22px;margin:4px 0 16px}h2{font-size:18px;color:#ff5abe;margin:24px 0 8px}
+.imgs{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory}.imgs img{width:80%;max-width:360px;border-radius:8px;scroll-snap-align:start}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}button{flex:1;min-width:150px;padding:14px;border:0;border-radius:12px;background:#06b6d4;color:#0c0722;font-weight:700;font-size:16px}
+button+button{background:#ff5abe}pre{white-space:pre-wrap;background:#161036;padding:12px;border-radius:10px;font:14px/1.45 -apple-system,system-ui,sans-serif}
+.menu a{display:inline-block;margin:0 8px 8px 0;padding:10px 14px;border-radius:20px;background:#ff5abe;color:#0c0722;font-weight:700;text-decoration:none}section{scroll-margin-top:10px}
+.note{background:#3a2a00;padding:10px;border-radius:8px}.verif{background:#161036;padding:10px;border-radius:8px;line-height:2}.verif a{color:#06b6d4;margin-right:12px;font-weight:600}</style></head><body>
+<h1>📸 Nationell synkrotävling 1</h1><p class="note">⚠️ Compte Instagram manquant : Seaside, Spirit Junior, Moonlights Junior, Eternity Junior, Seaside Junior — à ajouter dans comptes_instagram.txt</p><section id="nationell-synkrot-vling-1">
+<h2>Nationell synkrotävling 1</h2>
+<div class="imgs"><img src="nationell-synkrotavling-1_1.png?v=1ccf1a85cb" alt="slide 1" loading="lazy"><img src="nationell-synkrotavling-1_2.png?v=ca834c8acd" alt="slide 2" loading="lazy"><img src="nationell-synkrotavling-1_3.png?v=91050b59d8" alt="slide 3" loading="lazy"><img src="nationell-synkrotavling-1_4.png?v=f3f331906b" alt="slide 4" loading="lazy"><img src="nationell-synkrotavling-1_5.png?v=a186995245" alt="slide 5" loading="lazy"></div>
+<div class="btns"><button onclick='partager([["nationell-synkrotavling-1_1.png?v=1ccf1a85cb", "nationell-synkrotavling-1_1.png"], ["nationell-synkrotavling-1_2.png?v=ca834c8acd", "nationell-synkrotavling-1_2.png"], ["nationell-synkrotavling-1_3.png?v=91050b59d8", "nationell-synkrotavling-1_3.png"], ["nationell-synkrotavling-1_4.png?v=f3f331906b", "nationell-synkrotavling-1_4.png"], ["nationell-synkrotavling-1_5.png?v=a186995245", "nationell-synkrotavling-1_5.png"]], this)'>📥 Enregistrer les 5 images</button>
+<button onclick="copier('cap0', this)">📋 Copier la légende</button></div>
+<pre id="cap0">📍 Nationell synkrotävling 1 (7-8 Nov) 🇸🇪
+
+🔹 Senior
+• Team Seaside — 171.33 (SP 63.18 | FS 108.15)
+
+🔹 Junior
+🥇 Team Spirit — 170.58 (SP 67.82 | FS 102.76)
+🥈 Team Moonlights — 141.93 (SP 48.90 | FS 93.03)
+🥉 Team Seaside — 100.97 (SP 40.43 | FS 60.54)
+• Team Eternity — 45.27 (SP 45.27)
+
+📈 Follow every team&#x27;s progression throughout the season on our website.
+
+👉 Swipe for the full breakdown — judges &amp; elements for both programs.
+
+🔗 Full results &amp; stats: synchrostats.github.io
+
+⚠️ Scores compiled from official results — let us know if you spot any discrepancy!
+
+#SynchroSkating #SynchronizedSkating #NationellSynkrotavling1 #SwedishSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamSeaside #TeamSpirit #TeamMoonlights #TeamEternity</pre>
+</section>
+<script>
+async function partager(fichiers, b){
+  try {
+    const files = await Promise.all(fichiers.map(async ([u, f]) => new File([await (await fetch(u, {cache:'reload'})).blob()], f, {type:'image/png'})));
+    if (navigator.canShare && navigator.canShare({files})) { await navigator.share({files}); return; }
+  } catch(e) { if (e.name === 'AbortError') return; }
+  fichiers.forEach(([u, f]) => { const a = document.createElement('a'); a.href = u; a.download = f; document.body.appendChild(a); a.click(); a.remove(); });
+  b.textContent = '✅ Téléchargées';
+}
+function copier(id, b){ navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => { b.textContent = '✅ Légende copiée'; }); }
+</script></body></html>
