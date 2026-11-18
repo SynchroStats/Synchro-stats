@@ -1,0 +1,26 @@
+{
+ "competition": "Ural Cup",
+ "compId": "1794787200000.11",
+ "format": "national",
+ "posts": [
+  {
+   "titre": "Ural Cup",
+   "images": [
+    "ural-cup_1.png",
+    "ural-cup_2.png",
+    "ural-cup_3.png",
+    "ural-cup_4.png"
+   ],
+   "legende": "📍 Ural Cup (14 Nov 2026) 🇷🇺\n\n🔹 Junior\n🥇 Team Junost (@team_junost__rus) — 196.45 (SP 76.16 | FS 120.29)\n🥈 Team Frivolete (@frivolete_team) — 169.60 (SP 61.71 | FS 107.89)\n🥉 Team Ice Line — 152.23 (SP 58.96 | FS 93.27)\n• Team Astarta (@team_astarta_rus) — 146.41 (SP 55.26 | FS 91.15)\n• Team Zvezda (@team_zvezda_junior) — 145.20 (SP 54.41 | FS 90.79)\n• Team Sibiriya — 143.42 (SP 52.69 | FS 90.73)\n• Team Sonata — 134.04 (SP 45.66 | FS 88.38)\n\n📈 Follow every team's progression throughout the season on our website.\n\n📊 SZN RK (on each TOTAL) = that score's rank among every team's best score this season — national & regional events only (domestic scores aren't comparable to international ones).\n\n👉 Swipe for the full breakdown — judges & elements for the free skate.\n\n🔗 Full results & stats: synchrostats.github.io\n\n⚠️ Scores compiled from official results — let us know if you spot any discrepancy!\n\n#SynchroSkating #SynchronizedSkating #UralCup #RussianSynchro #SynchroStats #FigureSkating #SynchroFamily #IceSkating #TeamJunost #TeamFrivolete #TeamIceLine #TeamAstarta #TeamZvezda #TeamSibiriya",
+   "caption_file": "ural-cup_caption.txt"
+  }
+ ],
+ "comptes_manquants": [],
+ "comptes_utilises": [
+  "@frivolete_team",
+  "@team_astarta_rus",
+  "@team_junost__rus",
+  "@team_zvezda_junior"
+ ],
+ "comptes_invalides": []
+}
