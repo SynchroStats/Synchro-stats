@@ -10184,6 +10184,7 @@ if (rang === 1) rankBadge = rang;
             return String(x || '').replace(/ß/g, 'ss').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
         }
         function _calJour1(d) { const m = String(d || '').match(/\d{1,2}/); return m ? parseInt(m[0], 10) : null; }
+        function _calMois1(d) { const m = String(d || '').toLowerCase().match(/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/); return m ? m[1] : null; }
         var _calCorrCache = {};
         function _calCorrespondances(saison) {
             const base = saison === '2627' ? cal2627 : cal2526;
@@ -10203,10 +10204,12 @@ if (rang === 1) rankBadge = rang;
             };
             base.forEach(c => {
                 if (map.has(c)) return;
-                const lc = _calNormTxt(c.l), j = _calJour1(c.d);
+                const lc = _calNormTxt(c.l), j = _calJour1(c.d), mo = _calMois1(c.d);
                 let best = null, bestScore = -1;
                 cands.forEach(l => {
                     if (prises.has(l) || _calJour1(l.d) !== j) return;
+                    const ml = _calMois1(l.d);
+                    if (mo && ml && mo !== ml) return;
                     const ll = _calNormTxt(l.l);
                     if (!lc || !ll || (lc !== ll && lc.split(' ')[0] !== ll.split(' ')[0])) return;
                     const sc = proximite(c.n, l.n);
